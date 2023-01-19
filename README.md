@@ -7,3 +7,4 @@
  - open files and get file descriptors
  - remove unneccesery quotes and expand environement values
  - clear function (free allocated memory)
+ - BULITINS (for execution part);
