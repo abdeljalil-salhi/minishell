@@ -1,4 +1,4 @@
-# parsing :
+# parsing : 99%
  - handle (ctrl+C , ctrl+D , ctrl+\) signals
  - lexical analyse (split input into : words, special characteres('>' '<' '(' ')' '|' '&' ))
  - check for syntax errors (unclosed quotes, invalid form of ">> << > < && || |", ......)
