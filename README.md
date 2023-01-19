@@ -8,3 +8,5 @@
  - remove unneccesery quotes and expand environement values
  - clear function (free allocated memory)
  - BULITINS (for execution part);
+
+# salit normal cases anbqa nchof nhadli chi special cases !!
