@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:41:41 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 13:14:45 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:25:28 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_redir	*rd_new_node(char *file, int type)
 {
 	t_redir	*new;
-	
+
 	new = malloc(sizeof(t_redir));
 	if (!new)
 		return (NULL);

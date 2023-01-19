@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   re_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 11:44:18 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 14:54:06 by mtellami         ###   ########.fr       */
+/*   Created: 2023/01/10 19:55:55 by mtellami          #+#    #+#             */
+/*   Updated: 2023/01/18 12:37:45 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+void	re_pwd(void)
 {
-	t_data	data;
-	char	*input;
+	char	*pwd;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	data.env = ft_tabdup(env);
-	while (1)
-	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, sig_handler);
-		input = readline(GREEN "minishell-3.2$ " RESET);
-		if (empty(input))
-			continue ;
-		add_history(input);
-		parsing(input, &data);
-		if (data.errors)
-			continue ;
-		clear(&data);
-	}
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		printf("minishell: error retrieving current directory\n");
+	printf("%s\n", pwd);
+	free(pwd);
 }

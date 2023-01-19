@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   empty.c                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 11:49:05 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/15 12:42:05 by mtellami         ###   ########.fr       */
+/*   Created: 2023/01/14 11:50:45 by mtellami          #+#    #+#             */
+/*   Updated: 2023/01/19 15:23:46 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	empty(char *input)
+void	parsing(char *input, t_data *data)
 {
-	int	i;
+	char	**ps;
 
-	i = 0;
-	if (!input)
+	data->errors = 0;
+	ps = lexer(input);
+	if (syntax_error(ps))
 	{
-		printf("exit\n");
-		exit(EXIT_SUCCESS);
+		data->errors = 1;
+		free(input);
+		ft_freearr(ps);
+		return ;
 	}
-	while (input[i])
-		if (input[i++] != SPACE)
-			return (0);	
+	parser(ps, data);
+	ft_freearr(ps);
 	free(input);
-	return (1);
 }

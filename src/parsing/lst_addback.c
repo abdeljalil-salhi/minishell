@@ -1,37 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   lst_addback.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 11:44:18 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 14:54:06 by mtellami         ###   ########.fr       */
+/*   Created: 2023/01/17 16:56:24 by mtellami          #+#    #+#             */
+/*   Updated: 2023/01/18 19:25:25 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+void	rd_addback(t_redir **head, t_redir *new)
 {
-	t_data	data;
-	char	*input;
+	t_redir	*tmp;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	data.env = ft_tabdup(env);
-	while (1)
+	tmp = *head;
+	if (!head || !new)
+		return ;
+	if (*head)
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, sig_handler);
-		input = readline(GREEN "minishell-3.2$ " RESET);
-		if (empty(input))
-			continue ;
-		add_history(input);
-		parsing(input, &data);
-		if (data.errors)
-			continue ;
-		clear(&data);
+		tmp = rd_last_node(tmp);
+		tmp->next = new;
+		new->previous = tmp;
 	}
+	else
+		*head = new;
+}
+
+void	pc_addback(t_proc **head, t_proc *new)
+{
+	t_proc	*tmp;
+
+	tmp = *head;
+	if (!head || !new)
+		return ;
+	if (*head)
+	{
+		tmp = pc_last_node(tmp);
+		tmp->next = new;
+		new->previous = tmp;
+	}
+	else
+		*head = new;
 }

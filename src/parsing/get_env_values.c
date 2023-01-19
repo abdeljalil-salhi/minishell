@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   get_env_values.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 11:50:45 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 18:40:10 by mtellami         ###   ########.fr       */
+/*   Created: 2023/01/18 17:48:07 by mtellami          #+#    #+#             */
+/*   Updated: 2023/01/19 14:13:09 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parsing(char *input, t_data *data)
+char	*get_env_values(char *str, char **env)
 {
-	char	**ps;
+	char	*ptr;
+	int		i;
 
-	data->errors = 0;
-	ps = lexer(input);
-	if (syntax_error(ps))
+	i = 0;
+	while (env[i])
 	{
-		data->errors = 1;
-		free(input);
-		ft_freearr(ps);
-		return ;
+		ptr = ft_strstr(env[i], str);
+		if (ptr)
+		{
+			if (*(ptr + ft_strlen(str)) == '=' && str[0] == env[i][0])
+			{
+				ptr = ft_strdup(env[i] + (ft_strlen(str) + 1));
+				free(str);
+				return (ptr);
+			}
+		}
+		i++;
 	}
-	parser(ps, data);
-	ft_freearr(ps);
-	free(input);
+	if (!ft_strcmp(str, "?"))
+		ptr = ft_itoa(g_exit_status);
+	else
+		ptr = ft_strdup("");
+	free(str);
+	return (ptr);
 }

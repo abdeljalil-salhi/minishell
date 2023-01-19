@@ -1,47 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_addback.c                                      :+:      :+:    :+:   */
+/*   sig_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/17 16:56:24 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 13:12:35 by mtellami         ###   ########.fr       */
+/*   Created: 2023/01/18 18:36:14 by mtellami          #+#    #+#             */
+/*   Updated: 2023/01/19 13:24:20 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	rd_addback(t_redir **head, t_redir *new)
+void	sig_handler(int sig)
 {
-	t_redir	*tmp;
-	
-	tmp = *head;
-	if (!head || !new)
-		return ;
-	if (*head)
+	if (sig == SIGINT)
 	{
-		tmp = rd_last_node(tmp);
-		tmp->next = new;
-		new->previous = tmp;
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
-	else
-		*head = new;
-}
-
-void	pc_addback(t_proc **head, t_proc *new)
-{
-	t_proc	*tmp;
-
-	tmp = *head;
-	if (!head || !new)
-		return ;
-	if (*head)
-	{
-		tmp = pc_last_node(tmp);
-		tmp->next = new;
-		new->previous = tmp;
-	}
-	else
-		*head = new;
 }

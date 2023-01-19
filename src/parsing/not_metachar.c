@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_handler.c                                      :+:      :+:    :+:   */
+/*   not_metachar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 18:36:14 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 18:39:36 by mtellami         ###   ########.fr       */
+/*   Created: 2023/01/14 13:45:35 by mtellami          #+#    #+#             */
+/*   Updated: 2023/01/19 14:14:36 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sig_handler(int sig)
+int	not_metachar(char c)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		// rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	if (c != RIGHT_ARROW && c != LEFT_ARROW
+		&& c != PIPE && c != SINGLE_QUOTE
+		&& c != DOUBLE_QUOTE && c != SPACE
+		&& c != AMPERSAND && c != OPEN_PARENTHESE
+		&& c != CLOSE_PARENTHESE)
+		return (1);
+	return (0);
 }

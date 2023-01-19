@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:17:16 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 16:22:43 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:25:46 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	**get_secure_paths(char **env)
 	int		i;
 
 	i = 0;
-
 	while (env[i])
 	{
 		if (ft_strstr(env[i], "PATH"))

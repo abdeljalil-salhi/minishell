@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 18:38:01 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:50:03 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define RESET "\e[00m"
 # define RED "\e[00;31m"
 
-int g_exit_status;
+int	g_exit_status;
 
 enum e_token
 {
@@ -60,33 +60,34 @@ enum e_separator
 
 typedef struct s_redir
 {
-	int				type;//done
-	int				fd;//done	
-	char			*file;//done;
-	struct s_redir *next;//done
-	struct s_redir *previous;//done
+	int				type;
+	int				fd;
+	char			*file;
+	struct s_redir	*next;
+	struct s_redir	*previous;
 }	t_redir;
 
 typedef struct s_proc
 {
-	char 			*cmd;//done
-	char 			**args; // done
-	int  			separator;//done
-	int				level;// done
-	struct s_redir	*head;// done
-	struct s_proc	*next;// done
-	struct s_proc	*previous;// done
+	char			*cmd;
+	char			**args;
+	int				separator;
+	int				level;
+	struct s_redir	*head;
+	struct s_proc	*next;
+	struct s_proc	*previous;
 }	t_proc;
 
 typedef struct s_data
 {
-	char 			**env;// done
-	int				errors;// done
-	struct s_proc	*head;// done
+	char			**env;
+	int				errors;
+	struct s_proc	*head;
 }	t_data;
 
 void	rl_replace_line(const char *str, int i);
 
+/* ------------- libft ------------- */
 int		ft_tabsize(char **tab);
 char	*ft_strdup(char *str);
 int		ft_strlen(char *str);
@@ -99,6 +100,7 @@ char	**ft_tabdup(char **tab);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_itoa(int n);
 
+/* ------------- parsing ------------- */
 void	parsing(char *input, t_data *data);
 int		syntax_error(char **lx);
 char	**lexer(char *input);
@@ -121,6 +123,9 @@ char	*absolute_path(char *cmd, char **env);
 char	*expand(char *str, char **env);
 char	*get_env_values(char *str, char **env);
 void	sig_handler(int sig);
-
+int		parentheses_check(char **lx, int i, int *x, int *y);
+void	init_list(char **lx, t_data *data);
+void	init_rd(t_data *data);
+int		get_separator(char **lx, int i);
 
 #endif
