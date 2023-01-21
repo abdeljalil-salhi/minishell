@@ -6,44 +6,57 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:55:01 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 15:23:39 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/21 00:48:11 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	quote_analyse(char ***lx, char **buffer, char *input, int *i)
+void	quote_analyse(char **buffer, char *input, int *i)
 {
-	char	quote;
+	int		s_quote;
+	int		d_quote;
 
+	s_quote = 0;
+	d_quote = 0;
 	*buffer = str_concate(*buffer, input[*i]);
-	quote = input[(*i)++];
-	while (input[*i] && input[*i] != quote)
+	if (input[(*i)++] == SINGLE_QUOTE)
+		s_quote++;
+	else
+		d_quote++;
+	while (input[*i])
+	{
+		if (input[*i] == SINGLE_QUOTE)
+			s_quote++;
+		else if (input[*i] == DOUBLE_QUOTE)
+			d_quote++;
+		if (s_quote % 2 == 0 && d_quote % 2 == 0 && (input[(*i) + 1] == SPACE
+				|| !input[(*i) + 1]))
+			break ;
 		*buffer = str_concate(*buffer, input[(*i)++]);
-	*buffer = str_concate(*buffer, input[(*i)++]);
-	*lx = arr_concate(*lx, *buffer);
+	}
+	if (input[*i])
+		*buffer = str_concate(*buffer, input[(*i)++]);
 }
 
-void	separator_analyse(char ***lx, char **buffer, char *input, int *i)
+void	separator_analyse(char **buffer, char *input, int *i)
 {
 	*buffer = str_concate(*buffer, input[*i]);
 	if (input[(*i) + 1] == input[*i])
 		*buffer = str_concate(*buffer, input[++(*i)]);
-	*lx = arr_concate(*lx, *buffer);
 	(*i)++;
 }
 
-void	parenthese_analyse(char ***lx, char **buffer, char *input, int *i)
+void	words_analyse(char **buffer, char *input, int *i)
 {
-	*buffer = str_concate(*buffer, input[(*i)++]);
-	*lx = arr_concate(*lx, *buffer);
-}
-
-void	words_analyse(char ***lx, char **buffer, char *input, int *i)
-{
-	while (input[*i] && not_metachar(input[*i]))
+	while (input[*i])
+	{
 		*buffer = str_concate(*buffer, input[(*i)++]);
-	*lx = arr_concate(*lx, *buffer);
+		if (input[*i] == SINGLE_QUOTE || input[*i] == DOUBLE_QUOTE)
+			quote_analyse(buffer, input, i);
+		if (!not_metachar(input[*i]))
+			break ;
+	}
 }
 
 char	**lexer(char *input)
@@ -60,14 +73,16 @@ char	**lexer(char *input)
 		if (input[i] == SPACE)
 			space_skiper(input, &i);
 		else if (input[i] == SINGLE_QUOTE || input[i] == DOUBLE_QUOTE)
-			quote_analyse(&lx, &buffer, input, &i);
+			quote_analyse(&buffer, input, &i);
 		else if (input[i] == PIPE || input[i] == AMPERSAND
 			|| input[i] == RIGHT_ARROW || input[i] == LEFT_ARROW)
-			separator_analyse(&lx, &buffer, input, &i);
+			separator_analyse(&buffer, input, &i);
 		else if (input[i] == OPEN_PARENTHESE || input[i] == CLOSE_PARENTHESE)
-			parenthese_analyse(&lx, &buffer, input, &i);
+			buffer = str_concate(buffer, input[i++]);
 		else
-			words_analyse(&lx, &buffer, input, &i);
+			words_analyse(&buffer, input, &i);
+		if (buffer)
+			lx = arr_concate(lx, buffer);
 		buffer_reset(&buffer);
 	}
 	return (lx);

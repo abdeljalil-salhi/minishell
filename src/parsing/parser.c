@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:45:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 16:50:42 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/21 03:35:53 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,51 +55,40 @@ void	open_files(t_data *data)
 	}
 }
 
-char	*del_in_quote(char *str)
+char	*del_quote(char *str)
 {
-	int		i;
+	char	*buffer;
 	char	quote;
-	char	*s;
+	int		i;
 
 	i = 0;
-	s = NULL;
+	buffer = NULL;
 	while (str[i])
 	{
-		if (str[i] != SINGLE_QUOTE && str[i] != DOUBLE_QUOTE)
-			s = str_concate(s, str[i++]);
-		else
+		if (str[i] == SINGLE_QUOTE || str[i] == DOUBLE_QUOTE)
 		{
 			quote = str[i++];
-			while (str[i] && str[i] != quote)
-				s = str_concate(s, str[i++]);
+			while (str[i] != quote)
+				buffer = str_concate(buffer, str[i++]);
 			i++;
 		}
+		if (str[i])
+			buffer = str_concate(buffer, str[i++]);
 	}
 	free(str);
-	return (s);
+	return (buffer);
 }
 
 void	quote_expand(t_proc *proc, char **env)
 {
-	char	*ptr;
 	int		i;
 
 	i = 0;
 	while (proc->args && proc->args[i])
 	{
-		if (proc->args[i][0] != SINGLE_QUOTE)
-			proc->args[i] = expand(proc->args[i], env);
-		if (proc->args[i][0] == SINGLE_QUOTE
-			|| proc->args[i][0] == DOUBLE_QUOTE)
-		{
-			ptr = proc->args[i];
-			proc->args[i] = ft_substr(proc->args[i], 1,
-					ft_strlen(proc->args[i]) - 2);
-			free(ptr);
-		}
-		if (proc->args[i][0] != SINGLE_QUOTE
-			&& proc->args[i][0] != DOUBLE_QUOTE)
-		proc->args[i] = del_in_quote(proc->args[i]);
+		proc->args[i] = expand(proc->args[i], env);
+		if (ft_strchr(proc->args[i], '\'') || ft_strchr(proc->args[i], '"'))
+			proc->args[i] = del_quote(proc->args[i]);
 		i++;
 	}
 }

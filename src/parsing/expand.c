@@ -6,103 +6,87 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:24:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/16 09:34:32 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/21 07:13:59 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	valuelen(char *str, char **env)
+char	*get_env_variable(char *str, char **env)
 {
 	char	*ptr;
 	int		i;
-
-	i = 1;
-	while (str[i] && str[i] != ' ' && str[i] != '$'
-		&& str[i] != DOUBLE_QUOTE)
-		i++;
-	ptr = ft_substr(str, 1, i - 1);
-	ptr = get_env_values(ptr, env);
-	i = ft_strlen(ptr);
-	free(ptr);
-	return (i);
-}
-
-int	newsize(char *str, char **env)
-{
-	int	size;
-	int	i;
 
 	i = 0;
-	size = 0;
-	while (str[i])
+	while (env[i])
 	{
-		if (str[i] != '$')
+		ptr = ft_strstr(env[i], str);
+		if (ptr)
 		{
-			i++;
-			size++;
+			if (*(ptr + ft_strlen(str)) == '=' && *str == *env[i])
+			{
+				ptr = ft_strdup(env[i] + (ft_strlen(str) + 1));
+				free(str);
+				return (ptr);
+			}
 		}
-		else
-		{
-			size += valuelen(str + i++, env);
-			while (str[i] && str[i] != ' ' && str[i] != '$'
-				&& str[i] != DOUBLE_QUOTE)
-				i++;
-		}
-	}
-	return (size);
-}
-
-char	*g_value(char *str, char **env)
-{
-	char	*ptr;
-	int		i;
-
-	i = 1;
-	while (str[i] && str[i] != ' ' && str[i] != '$'
-		&& str[i] != DOUBLE_QUOTE)
 		i++;
-	ptr = ft_substr(str, 1, i - 1);
-	ptr = get_env_values(ptr, env);
+	}
+	if (!ft_strcmp(str, "?"))
+		ptr = ft_itoa(g_exit_status);
+	else
+		ptr = ft_strdup("");
+	free(str);
 	return (ptr);
 }
 
-void	getvalue(char *str, char *s, int *j, char **env)
+void	get_env_value(char **buffer, char *str, int *i, char **env)
 {
-	char	*ptr;
-	int		x;
+	char	*ptr1;
+	char	*ptr2;
+	int		j;
 
-	x = 0;
-	ptr = g_value(str, env);
-	while (ptr[x])
-		s[(*j)++] = ptr[x++];
-	free(ptr);
+	(*i)++;
+	j = *i;
+	while (str[*i] && str[*i] != '$' && str[*i] != ' '
+		&& str[*i] != SINGLE_QUOTE && str[*i] != DOUBLE_QUOTE)
+		(*i)++;
+	ptr1 = ft_substr(str, j, *i - j);
+	ptr1 = get_env_variable(ptr1, env);
+	ptr2 = *buffer;
+	*buffer = ft_strjoin(*buffer, ptr1);
+	free(ptr2);
+	free(ptr1);
+}
+
+void	set_quotes(char *str, int i, int *s_quote, int *d_quote)
+{
+	if (str[i] == SINGLE_QUOTE)
+		(*s_quote)++;
+	else if (str[i] == DOUBLE_QUOTE)
+		(*d_quote)++;
 }
 
 char	*expand(char *str, char **env)
 {
-	char	*s;
+	int		s_quote;
+	int		d_quote;
+	char	*buffer;
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
-	s = malloc(sizeof(char) * (newsize(str, env) + 1));
-	if (!s)
-		exit(EXIT_FAILURE);
+	s_quote = 0;
+	d_quote = 0;
+	buffer = NULL;
 	while (str[i])
 	{
-		if (str[i] != '$')
-			s[j++] = str[i++];
+		set_quotes(str, i, &s_quote, &d_quote);
+		if (str[i] == '$' && (d_quote % 2
+			|| (d_quote % 2 == 0 && s_quote % 2 == 0)))
+		 	 	get_env_value(&buffer, str, &i, env);
 		else
-		{
-			getvalue(str + i++, s, &j, env);
-			while (str[i] && str[i] != ' ' && str[i] != '$'
-				&& str[i] != DOUBLE_QUOTE)
-				i++;
-		}
-	}
-	s[j] = '\0';
+			buffer = str_concate(buffer, str[i++]);
+	}	
 	free(str);
-	return (s);
+	return (buffer);
 }

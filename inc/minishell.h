@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 16:50:03 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/21 07:06:42 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,25 @@ enum e_separator
 	PIPE_TOKEN,
 };
 
+/*
+	<-- man parsing -->
+	- redirection struct :
+	 + type : type of next separator (check separators enum ^)
+	 + fd : file descriptor in success, -1 if permission denied -2 if no such file
+	 + file : file path, delimiter in Herdoc
+
+	- process struct :
+	 + cmd : command absolute path, NULL if command not found, empty str if no command (< filein > fileout)
+	 + args : argument array, NULL if no args
+	 + separator : check types in enum ^
+	 + head : header of redirections list, NULL if no redirections
+
+	- main struct (data)
+	 + env : environment array, main shell env
+	 + errors : used in parsing if syntax error detected
+	 + head : the header of process list
+*/
+
 typedef struct s_redir
 {
 	int				type;
@@ -99,6 +118,8 @@ char	*ft_strstr(char *str, char *to_find);
 char	**ft_tabdup(char **tab);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_itoa(int n);
+char	*ft_strchr(char *str, int c);
+char	*ft_strjoin(char *s1, char *s2);
 
 /* ------------- parsing ------------- */
 void	parsing(char *input, t_data *data);
@@ -121,7 +142,6 @@ t_redir	*rd_new_node(char *file, int type);
 void	clear(t_data *data);
 char	*absolute_path(char *cmd, char **env);
 char	*expand(char *str, char **env);
-char	*get_env_values(char *str, char **env);
 void	sig_handler(int sig);
 int		parentheses_check(char **lx, int i, int *x, int *y);
 void	init_list(char **lx, t_data *data);

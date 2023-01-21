@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:54:11 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 16:18:58 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/21 00:43:52 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,24 @@ int	redirection_check(char **lx, int i)
 
 int	quote_check(char *str)
 {
-	if (str[0] == SINGLE_QUOTE || str[0] == DOUBLE_QUOTE)
+	char	quote;
+	int		i;
+
+	i = 0;
+	while (str[i])
 	{
-		if (str[ft_strlen(str) - 1] != str[0] || ft_strlen(str) == 1)
+		if (str[i] == DOUBLE_QUOTE || str[i] == SINGLE_QUOTE)
 		{
-			printf("minishell: syntax error near unclosed quotation mark\n");
-			return (1);
+			quote = str[i++];
+			while (str[i] && str[i] != quote)
+				i++;
+			if (!str[i])
+			{
+				printf("minishell: syntax error near unclosed quotation mark\n");
+				return (1);
+			}
 		}
+		i++;
 	}
 	return (0);
 }
