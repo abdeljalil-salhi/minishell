@@ -6,11 +6,17 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:50:45 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/21 02:47:03 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:34:32 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**clean_parenthese(char **ps)
+{
+	(void)ps;
+	return (NULL);
+}
 
 void	parsing(char *input, t_data *data)
 {
@@ -18,6 +24,7 @@ void	parsing(char *input, t_data *data)
 
 	data->errors = 0;
 	ps = lexer(input);
+ 	// ps = clean_parenthese(ps); unneccesery parenthese and doubled parenthese(maybe should exit as syntax error)
 	if (syntax_error(ps))
 	{
 		data->errors = 1;
@@ -26,13 +33,9 @@ void	parsing(char *input, t_data *data)
 		return ;
 	}
 	parser(ps, data);
-	t_proc	*tmp = data->head;
-	while (tmp)
-	{
-		for(int i =0;tmp->args[i];i++)
-			printf("%s\n", tmp->args[i]);
-		tmp = tmp->next;
-	}
+	t_proc *tmp = data->head;
+	for(int i =0;tmp->args && tmp->args[i];i++)
+		printf("args[%d] :%s\n", i, tmp->args[i]);
 	ft_freearr(ps);
 	free(input);
 }

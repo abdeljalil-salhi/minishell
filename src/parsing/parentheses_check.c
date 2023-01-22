@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:28:50 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 16:14:08 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/21 07:36:35 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	open_parenth_check(char **lx, int *x, int i)
 			lx[i]);
 		return (1);
 	}
-	if (!ft_strcmp(lx[i + 1], ")") || !ft_strcmp(lx[i + 1], "&&")
-		|| !ft_strcmp(lx[i + 1], "||") || !ft_strcmp(lx[i + 1], "||"))
+	if (lx[i + 1] && (!ft_strcmp(lx[i + 1], ")") || !ft_strcmp(lx[i + 1], "&&")
+			|| !ft_strcmp(lx[i + 1], "||") || !ft_strcmp(lx[i + 1], "||")))
 	{
 		printf("minishell: syntax error near unexpected token `%s'\n",
 			lx[i + 1]);

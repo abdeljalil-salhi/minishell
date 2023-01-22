@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:55:01 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/21 00:48:11 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/21 17:32:47 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	quote_analyse(char **buffer, char *input, int *i)
 			s_quote++;
 		else if (input[*i] == DOUBLE_QUOTE)
 			d_quote++;
-		if (s_quote % 2 == 0 && d_quote % 2 == 0 && (input[(*i) + 1] == SPACE
-				|| !input[(*i) + 1]))
+		if (s_quote % 2 == 0 && d_quote % 2 == 0
+			&& (!not_metachar(input[*i + 1]) || !input[(*i) + 1]))
 			break ;
 		*buffer = str_concate(*buffer, input[(*i)++]);
 	}

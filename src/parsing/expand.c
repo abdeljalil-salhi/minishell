@@ -6,11 +6,26 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:24:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/21 07:13:59 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:21:32 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	non_env_values(char **str, char **ptr)
+{
+	char	*tmp;
+
+	if (**str == '?')
+	{
+		*ptr = ft_itoa(g_exit_status);
+		tmp = *ptr;
+		*ptr = ft_strjoin(*ptr, *str + 1);
+		free(tmp);
+	}
+	else
+		*ptr = ft_strdup("");
+}
 
 char	*get_env_variable(char *str, char **env)
 {
@@ -32,10 +47,7 @@ char	*get_env_variable(char *str, char **env)
 		}
 		i++;
 	}
-	if (!ft_strcmp(str, "?"))
-		ptr = ft_itoa(g_exit_status);
-	else
-		ptr = ft_strdup("");
+	non_env_values(&str, &ptr);
 	free(str);
 	return (ptr);
 }
@@ -53,6 +65,8 @@ void	get_env_value(char **buffer, char *str, int *i, char **env)
 		(*i)++;
 	ptr1 = ft_substr(str, j, *i - j);
 	ptr1 = get_env_variable(ptr1, env);
+	if (!(*buffer))
+		*buffer = ft_strdup("");
 	ptr2 = *buffer;
 	*buffer = ft_strjoin(*buffer, ptr1);
 	free(ptr2);
@@ -81,9 +95,9 @@ char	*expand(char *str, char **env)
 	while (str[i])
 	{
 		set_quotes(str, i, &s_quote, &d_quote);
-		if (str[i] == '$' && (d_quote % 2
-			|| (d_quote % 2 == 0 && s_quote % 2 == 0)))
-		 	 	get_env_value(&buffer, str, &i, env);
+		if (str[i] == '$' && str[i + 1] && (d_quote % 2
+				|| (d_quote % 2 == 0 && s_quote % 2 == 0)))
+			get_env_value(&buffer, str, &i, env);
 		else
 			buffer = str_concate(buffer, str[i++]);
 	}	
