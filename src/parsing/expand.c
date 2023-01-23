@@ -6,23 +6,28 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:24:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/22 17:21:32 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:00:20 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	non_env_values(char **str, char **ptr)
+void	non_env_values(char *str, char **ptr)
 {
 	char	*tmp;
 
-	if (**str == '?')
+	if (*str == '?')
 	{
 		*ptr = ft_itoa(g_exit_status);
 		tmp = *ptr;
-		*ptr = ft_strjoin(*ptr, *str + 1);
+		*ptr = ft_strjoin(*ptr, str + 1);
 		free(tmp);
 	}
+	else if ((!((*str >= 'a' && *str <= 'z')
+				|| (*str >= 'A' && *str <= 'Z')
+				|| (*str >= '0' && *str <= '9')
+				|| *str == '_')))
+		*ptr = ft_strjoin("$", str);
 	else
 		*ptr = ft_strdup("");
 }
@@ -47,7 +52,7 @@ char	*get_env_variable(char *str, char **env)
 		}
 		i++;
 	}
-	non_env_values(&str, &ptr);
+	non_env_values(str, &ptr);
 	free(str);
 	return (ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:45:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/22 15:34:27 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/23 17:00:49 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ char	*del_quote(char *str)
 		if (str[i] && str[i] != SINGLE_QUOTE && str[i] != DOUBLE_QUOTE)
 			buffer = str_concate(buffer, str[i++]);
 	}
+	if (!buffer)
+		buffer = ft_strdup("");
 	free(str);
-	
 	return (buffer);
 }
 
