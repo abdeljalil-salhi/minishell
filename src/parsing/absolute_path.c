@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:17:16 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 04:13:58 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 23:42:41 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,14 @@ char	*absolute_path(char *cmd)
 
 	if (!cmd)
 		return (NULL);
-	tree = get_secure_paths(g_data.env);
-	if (!tree)
-		return (NULL);
 	if (!access(cmd, F_OK) || !check_builtins(cmd))
 	{
 		path = ft_strdup(cmd);
-		ft_freearr(tree);
 		return (path);
 	}
+	tree = get_secure_paths(g_data.env);
+	if (!tree)
+		return (NULL);
 	path = NULL;
 	if (check_path(tree, &path, cmd))
 		return (path);
