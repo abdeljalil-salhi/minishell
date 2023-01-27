@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 02:04:52 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 02:57:50 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ void	rl_replace_line(const char *str, int i);
 int		ft_tabsize(char **tab);
 int		ft_atoi(const char *str);
 char	*ft_strdup(char *str);
+void	*ft_memset(void *b, int c, size_t len);
+void	ft_bzero(void *s, size_t n);
 int		ft_strlen(char *str);
 void	ft_freearr(char **tab);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -184,6 +186,7 @@ void	re_unset(char **args, char **env);
 /* ------------- execution ------------- */
 void	supervisor(void);
 int		executor(t_proc *proc);
+int		exit_status(int status);
 int		is_builtin(char *cmd);
 int		exec_builtin(char *cmd, char **args);
 

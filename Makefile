@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/27 01:59:06 by absalhi          ###   ########.fr        #
+#    Updated: 2023/01/27 02:59:08 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ READLINE = -lreadline -L ~/goinfre/homebrew/opt/readline/lib/
 LIBFT = libft/ft_strlen.c libft/ft_strdup.c libft/ft_freearr.c libft/ft_tabsize.c\
 	libft/ft_strcmp.c libft/ft_subarr.c libft/ft_strcjoin.c libft/ft_split.c \
 	libft/ft_strstr.c libft/ft_tabdup.c libft/ft_substr.c libft/ft_itoa.c\
-	libft/ft_strchr.c libft/ft_strjoin.c libft/ft_atoi.c
+	libft/ft_strchr.c libft/ft_strjoin.c libft/ft_atoi.c libft/ft_bzero.c
 
 PARSE = src/parsing/parsing.c src/parsing/syntax_error.c src/parsing/lexer.c\
 	src/parsing/space_skiper.c src/parsing/arr_concate.c src/parsing/str_concate.c\
@@ -46,10 +46,10 @@ OBJS = $(SRCS:.c=.o) $(LIBFT:.c=.o) $(PARSE:.c=.o) $(EXEC:.c=.o)\
 .c.o :
 	@cc $(CFLAGS) -c $< -o $(<:.c=.o)
 
+all : header $(NAME)
+
 header :
 	@echo "Compiling $(NAME)..."
-
-all : header $(NAME)
 
 $(NAME) : $(OBJS)
 	@cc $(CFLAGS) $(OBJS) $(READLINE) -o $(NAME)

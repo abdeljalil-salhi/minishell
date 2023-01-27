@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:44:18 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 01:47:06 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 02:58:18 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	ft_bzero(&g_data, sizeof(t_data));
 	init_builtins();
 	g_data.env = ft_tabdup(env);
 	while (1)

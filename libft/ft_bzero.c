@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_handler.c                                      :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 18:36:14 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 03:01:01 by absalhi          ###   ########.fr       */
+/*   Created: 2023/01/27 02:57:07 by absalhi           #+#    #+#             */
+/*   Updated: 2023/01/27 02:57:32 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sig_handler(int sig)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	size_t			i;
+	unsigned char	*s;
+
+	s = b;
+	i = 0;
+	while (i < len)
+		s[i++] = c;
+	return (s);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, '\0', n);
 }
