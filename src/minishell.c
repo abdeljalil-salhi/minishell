@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:44:18 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 02:58:18 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:35:58 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, sig_handler);
-		input = readline(GREEN "minishell-3.2$ " RESET);
+		input = readline(GREEN NAME RESET);
 		if (empty(input))
 			continue ;
 		add_history(input);

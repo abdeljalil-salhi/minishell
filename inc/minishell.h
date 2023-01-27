@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 04:15:44 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:36:06 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define GREEN "\e[01;32m"
 # define RESET "\e[00m"
 # define RED "\e[00;31m"
+# define NAME "minishell-3.2$ "
 
 # ifndef DEBUG
 #  define DEBUG 0

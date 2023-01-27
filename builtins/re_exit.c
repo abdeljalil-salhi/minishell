@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:56:55 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 04:09:04 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:32:22 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ void	re_exit(char **args)
 		if (not_num(args[1]))
 		{
 			printf("minishell: exit: %s: numeric argument required\n", args[1]);
-			g_data.exit_status = EXIT_FAILURE;
-			exit(EXIT_FAILURE);
+			g_data.exit_status = 255;
+			exit(g_data.exit_status);
 		}
 		else if (args[2])
 		{
 			printf("minishell: exit: too many arguments\n");
+			g_data.exit_status = 1;
 			return ;
 		}
 		else
