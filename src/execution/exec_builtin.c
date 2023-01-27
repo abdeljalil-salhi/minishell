@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 00:19:59 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/27 04:15:58 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/28 00:12:32 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ int	exec_builtin(char *cmd, char **args)
 	int	i;
 
 	i = -1;
+	g_data.exit_status = 0;
 	while (++i < 7)
 	{
 		if (ft_strcmp(cmd, g_data.builtins[i].name) == 0)
 		{
 			g_data.builtins[i].func(args);
-			return (0);
+			return (g_data.exit_status);
 		}
 	}
 	return (1);
