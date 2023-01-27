@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:32 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 01:55:03 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:08:22 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ void	n_option(char **args)
 		print_args(args + 1, 1);
 }
 
-void	re_echo(char **args, char **env)
+void	re_echo(char **args)
 {
-	(void) env;
 	if (!args[1])
 		printf("\n");
 	else if (args[1][0] == '-')

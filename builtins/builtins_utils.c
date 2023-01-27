@@ -6,29 +6,29 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 20:01:26 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 01:29:55 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:07:01 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	value_inquotes(char **env, int i)
+void	value_inquotes(int i)
 {
 	int	j;
 
 	j = 0;
 	printf("declare -x ");
-	while (env[i][j])
+	while (g_data.env[i][j])
 	{
-		printf("%c", env[i][j]);
-		if (env[i][j] == '=')
+		printf("%c", g_data.env[i][j]);
+		if (g_data.env[i][j] == '=')
 			break ;
 		j++;
 	}
-	printf("%c%s%c\n", '"', env[i] + j + 1, '"');
+	printf("%c%s%c\n", '"', g_data.env[i] + j + 1, '"');
 }
 
-int	check_var(char *str, char **env)
+int	check_var(char *str)
 {
 	int	i;
 	int	j;
@@ -41,10 +41,10 @@ int	check_var(char *str, char **env)
 		j++;
 	}
 	i = 0;
-	while (env[i])
+	while (g_data.env[i])
 	{
-		if (!ft_strncmp(str, env[i], j))
-			if (env[i][j] == '=' || !env[i][j])
+		if (!ft_strncmp(str, g_data.env[i], j))
+			if (g_data.env[i][j] == '=' || !g_data.env[i][j])
 				return (i);
 		i++;
 	}
@@ -76,23 +76,23 @@ int	valid_ident(char *str)
 	return (0);
 }
 
-void	sort_env(char **env)
+void	sort_env(void)
 {
 	char	*tmp;
 	int		i;
 	int		j;
 
 	i = 0;
-	while (env[i])
+	while (g_data.env[i])
 	{
 		j = i + 1;
-		while (env[j])
+		while (g_data.env[j])
 		{
-			if (ft_strcmp(env[i], env[j]) > 0)
+			if (ft_strcmp(g_data.env[i], g_data.env[j]) > 0)
 			{
-				tmp = env[i];
-				env[i] = env[j];
-				env[j] = tmp;
+				tmp = g_data.env[i];
+				g_data.env[i] = g_data.env[j];
+				g_data.env[j] = tmp;
 			}
 			j++;
 		}
@@ -100,20 +100,20 @@ void	sort_env(char **env)
 	}
 }
 
-void	cd_home(char **env)
+void	cd_home(void)
 {
 	char	*path;
 	int		i;
 
-	if (!check_home(env))
+	if (!check_home())
 	{
 		printf("minishell: cd: HOME not set\n");
 		g_data.exit_status = EXIT_FAILURE;
 	}
 	else
 	{
-		set_oldpwd(env);
-		path = home_path(env);
+		set_oldpwd(g_data.env);
+		path = home_path();
 		i = chdir(path);
 		if (i)
 		{
@@ -121,6 +121,6 @@ void	cd_home(char **env)
 			g_data.exit_status = EXIT_FAILURE;
 			return ;
 		}
-		set_pwd(env);
+		set_pwd();
 	}
 }

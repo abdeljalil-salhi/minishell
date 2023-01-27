@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   absolute_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:17:16 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 19:25:46 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/27 04:13:58 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int	check_path(char **tree, char **path, char *cmd)
 	return (0);
 }
 
-char	*absolute_path(char *cmd, char **env)
+char	*absolute_path(char *cmd)
 {
 	char	*path;
 	char	**tree;
 
 	if (!cmd)
 		return (NULL);
-	tree = get_secure_paths(env);
+	tree = get_secure_paths(g_data.env);
 	if (!tree)
 		return (NULL);
 	if (!access(cmd, F_OK) || !check_builtins(cmd))

@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 02:57:50 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:15:44 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ typedef struct s_proc
 typedef struct s_builtins
 {
 	char	*name;
-	void	(*func)(char **, char **);
+	void	(*func)(char **);
 }	t_builtins;
 
 typedef struct s_data
@@ -156,8 +156,8 @@ void	rd_addback(t_redir **head, t_redir *new);
 t_redir	*rd_last_node(t_redir *lst);
 t_redir	*rd_new_node(char *file, int type);
 void	clear(void);
-char	*absolute_path(char *cmd, char **env);
-char	*expand(char *str, char **env);
+char	*absolute_path(char *cmd);
+char	*expand(char *str);
 void	sig_handler(int sig);
 int		parentheses_check(char **lx, int i, int *x, int *y);
 void	init_list(char **lx);
@@ -166,22 +166,22 @@ int		get_separator(char **lx, int i);
 
 /* ------------- builtins ------------- */
 void	init_builtins(void);
-int		check_home(char **env);
-void	cd_home(char **env);
-int		check_var(char *str, char **env);
-void	value_inquotes(char **env, int i);
-char	*home_path(char **env);
-void	sort_env(char **env);
-void	set_pwd(char **env);
+int		check_home(void);
+void	cd_home(void);
+int		check_var(char *str);
+void	value_inquotes(int i);
+char	*home_path(void);
+void	sort_env(void);
+void	set_pwd(void);
 int		valid_ident(char *str);
-void	set_oldpwd(char **env);
-void	re_cd(char **args, char **env);
-void	re_echo(char **args, char **env);
-void	re_env(char **args, char **env);
-void	re_exit(char **args, char **env);
-void	re_export(char **args, char **env);
-void	re_pwd(char **args, char **env);
-void	re_unset(char **args, char **env);
+void	set_oldpwd();
+void	re_cd(char **args);
+void	re_echo(char **args);
+void	re_env(char **args);
+void	re_exit(char **args);
+void	re_export(char **args);
+void	re_pwd(char **args);
+void	re_unset(char **args);
 
 /* ------------- execution ------------- */
 void	supervisor(void);

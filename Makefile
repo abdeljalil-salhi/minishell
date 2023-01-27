@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/27 02:59:08 by absalhi          ###   ########.fr        #
+#    Updated: 2023/01/27 03:54:18 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(NAME) : $(OBJS)
 	@cc $(CFLAGS) $(OBJS) $(READLINE) -o $(NAME)
 
 debug : CFLAGS += -D DEBUG
-debug : all
+debug : fclean all
 
 clean :
 	@rm -fr $(OBJS)

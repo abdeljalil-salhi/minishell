@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 00:19:59 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/27 02:05:13 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:15:58 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	exec_builtin(char *cmd, char **args)
 	{
 		if (ft_strcmp(cmd, g_data.builtins[i].name) == 0)
 		{
-			g_data.builtins[i].func(args, g_data.env);
+			g_data.builtins[i].func(args);
 			return (0);
 		}
 	}

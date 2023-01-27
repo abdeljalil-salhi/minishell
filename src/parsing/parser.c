@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:45:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 02:49:23 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:13:32 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	get_cmd_path(void)
 		if (!tmp->args)
 			tmp->cmd = ft_strdup("");
 		else
-			tmp->cmd = absolute_path(tmp->args[0], g_data.env);
+			tmp->cmd = absolute_path(tmp->args[0]);
 		tmp = tmp->next;
 	}
 }
@@ -81,14 +81,14 @@ char	*del_quote(char *str)
 	return (buffer);
 }
 
-void	quote_expand(t_proc *proc, char **env)
+void	quote_expand(t_proc *proc)
 {
 	int		i;
 
 	i = 0;
 	while (proc->args && proc->args[i])
 	{
-		proc->args[i] = expand(proc->args[i], env);
+		proc->args[i] = expand(proc->args[i]);
 		if (ft_strchr(proc->args[i], '\'') || ft_strchr(proc->args[i], '"'))
 			proc->args[i] = del_quote(proc->args[i]);
 		i++;
@@ -106,7 +106,7 @@ void	parser(char **lx)
 	tmp = g_data.head;
 	while (tmp)
 	{
-		quote_expand(tmp, g_data.env);
+		quote_expand(tmp);
 		tmp = tmp->next;
 	}
 }

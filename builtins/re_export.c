@@ -6,50 +6,50 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:56:26 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 01:30:35 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:11:25 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	edit_var(char *str, char **env, int j)
+void	edit_var(char *str, int j)
 {
 	int	i;
 
 	if (!ft_strchr(str, '='))
 		return ;
 	i = 0;
-	while (env[i])
+	while (g_data.env[i])
 	{
 		if (i == j)
 		{
-			free(env[i]);
-			env[i] = ft_strdup(str);
+			free(g_data.env[i]);
+			g_data.env[i] = ft_strdup(str);
 		}
 		i++;
 	}
 }
 
-char	**add_var(char *str, char **env)
+char	**add_var(char *str)
 {
 	char	**new;
 	int		i;
 
-	new = malloc(sizeof(char *) * (ft_tabsize(env) + 2));
+	new = malloc(sizeof(char *) * (ft_tabsize(g_data.env) + 2));
 	i = 0;
-	while (env[i])
+	while (g_data.env[i])
 	{
-		new[i] = ft_strdup(env[i]);
-		free(env[i]);
+		new[i] = ft_strdup(g_data.env[i]);
+		free(g_data.env[i]);
 		i++;
 	}
-	free(env);
+	free(g_data.env);
 	new[i++] = ft_strdup(str);
 	new[i] = NULL;
 	return (new);
 }
 
-void	export_var(char **args, char **env)
+void	export_var(char **args)
 {
 	int	i;
 	int	j;
@@ -59,11 +59,11 @@ void	export_var(char **args, char **env)
 	{
 		if (!valid_ident(args[1]))
 		{
-			j = check_var(args[i], env);
+			j = check_var(args[i]);
 			if (j == -1)
-				env = add_var(args[i], env);
+				g_data.env = add_var(args[i]);
 			else
-				edit_var(args[i], env, j);
+				edit_var(args[i], j);
 		}
 		else
 			g_data.exit_status = EXIT_FAILURE;
@@ -71,28 +71,28 @@ void	export_var(char **args, char **env)
 	}
 }
 
-void	export_declare(char **env)
+void	export_declare(void)
 {
 	int	i;
 
 	i = 0;
-	while (env[i])
+	while (g_data.env[i])
 	{
-		if (!ft_strchr(env[i], '='))
-			printf("declare -x %s\n", env[i]);
+		if (!ft_strchr(g_data.env[i], '='))
+			printf("declare -x %s\n", g_data.env[i]);
 		else
-			value_inquotes(env, i);
+			value_inquotes(i);
 		i++;
 	}
 }
 
-void	re_export(char **args, char **env)
+void	re_export(char **args)
 {
 	if (args[1])
 	{
-		export_var(args, env);
-		sort_env(env);
+		export_var(args);
+		sort_env();
 	}
 	else
-		export_declare(env);
+		export_declare();
 }

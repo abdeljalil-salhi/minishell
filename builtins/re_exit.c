@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:56:55 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 01:54:59 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:09:04 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ int	not_num(char *str)
 	return (0);
 }
 
-void	re_exit(char **args, char **env)
+void	re_exit(char **args)
 {
-	(void) env;
 	printf("exit\n");
 	if (args[1])
 	{

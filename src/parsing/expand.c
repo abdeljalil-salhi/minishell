@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:24:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/26 22:49:19 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/27 04:15:28 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,20 @@ void	non_env_values(char *str, char **ptr)
 		*ptr = ft_strdup("");
 }
 
-char	*get_env_variable(char *str, char **env)
+char	*get_env_variable(char *str)
 {
 	char	*ptr;
 	int		i;
 
 	i = 0;
-	while (env[i])
+	while (g_data.env[i])
 	{
-		ptr = ft_strstr(env[i], str);
+		ptr = ft_strstr(g_data.env[i], str);
 		if (ptr)
 		{
-			if (*(ptr + ft_strlen(str)) == '=' && *str == *env[i])
+			if (*(ptr + ft_strlen(str)) == '=' && *str == *g_data.env[i])
 			{
-				ptr = ft_strdup(env[i] + (ft_strlen(str) + 1));
+				ptr = ft_strdup(g_data.env[i] + (ft_strlen(str) + 1));
 				free(str);
 				return (ptr);
 			}
@@ -57,7 +57,7 @@ char	*get_env_variable(char *str, char **env)
 	return (ptr);
 }
 
-void	get_env_value(char **buffer, char *str, int *i, char **env)
+void	get_env_value(char **buffer, char *str, int *i)
 {
 	char	*ptr1;
 	char	*ptr2;
@@ -69,7 +69,7 @@ void	get_env_value(char **buffer, char *str, int *i, char **env)
 		&& str[*i] != SINGLE_QUOTE && str[*i] != DOUBLE_QUOTE)
 		(*i)++;
 	ptr1 = ft_substr(str, j, *i - j);
-	ptr1 = get_env_variable(ptr1, env);
+	ptr1 = get_env_variable(ptr1);
 	if (!(*buffer))
 		*buffer = ft_strdup("");
 	ptr2 = *buffer;
@@ -86,7 +86,7 @@ void	set_quotes(char *str, int i, int *s_quote, int *d_quote)
 		(*d_quote)++;
 }
 
-char	*expand(char *str, char **env)
+char	*expand(char *str)
 {
 	int		s_quote;
 	int		d_quote;
@@ -102,7 +102,7 @@ char	*expand(char *str, char **env)
 		set_quotes(str, i, &s_quote, &d_quote);
 		if (str[i] == '$' && str[i + 1] && (d_quote % 2
 				|| (d_quote % 2 == 0 && s_quote % 2 == 0)))
-			get_env_value(&buffer, str, &i, env);
+			get_env_value(&buffer, str, &i);
 		else
 			buffer = str_concate(buffer, str[i++]);
 	}	
