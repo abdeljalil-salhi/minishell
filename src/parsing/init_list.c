@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:21:52 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 16:44:22 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:49:42 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	level_track(char **lx, int *i, int *lvl, int p)
 	}
 }
 
-void	init_list(char **lx, t_data *data)
+void	init_list(char **lx)
 {
 	t_proc	*node;
 	char	**buffer;
@@ -41,7 +41,7 @@ void	init_list(char **lx, t_data *data)
 
 	lvl = 0;
 	i = 0;
-	data->head = NULL;
+	g_data.head = NULL;
 	while (lx[i])
 	{
 		level_track(lx, &i, &lvl, 0);
@@ -50,7 +50,7 @@ void	init_list(char **lx, t_data *data)
 				&& ft_strcmp(lx[i], "|") && ft_strcmp(lx[i], "||")))
 			buffer = arr_concate(buffer, lx[i++]);
 		node = pc_new_node(buffer, get_separator(lx, i), lvl);
-		pc_addback(&data->head, node);
+		pc_addback(&g_data.head, node);
 		level_track(lx, &i, &lvl, 1);
 		if (lx[i])
 			i++;

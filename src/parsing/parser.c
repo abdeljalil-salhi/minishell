@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:45:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/23 17:00:49 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:49:09 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_cmd_path(t_data *data)
+void	get_cmd_path(void)
 {
 	t_proc	*tmp;
 
-	tmp = data->head;
+	tmp = g_data.head;
 	while (tmp)
 	{
 		if (!tmp->args)
 			tmp->cmd = ft_strdup("");
 		else
-			tmp->cmd = absolute_path(tmp->args[0], data->env);
+			tmp->cmd = absolute_path(tmp->args[0], g_data.env);
 		tmp = tmp->next;
 	}
 }
 
-void	open_files(t_data *data)
+void	open_files(void)
 {
 	t_proc	*tmp1;
 	t_redir	*tmp2;
 
-	tmp1 = data->head;
+	tmp1 = g_data.head;
 	while (tmp1)
 	{
 		tmp2 = tmp1->head;
@@ -95,18 +95,18 @@ void	quote_expand(t_proc *proc, char **env)
 	}
 }
 
-void	parser(char **lx, t_data *data)
+void	parser(char **lx)
 {
 	t_proc	*tmp;
 
-	init_list(lx, data);
-	init_rd(data);
-	get_cmd_path(data);
-	open_files(data);
-	tmp = data->head;
+	init_list(lx);
+	init_rd();
+	get_cmd_path();
+	open_files();
+	tmp = g_data.head;
 	while (tmp)
 	{
-		quote_expand(tmp, data->env);
+		quote_expand(tmp, g_data.env);
 		tmp = tmp->next;
 	}
 }

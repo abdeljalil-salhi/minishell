@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:56:26 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 12:39:56 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:30:35 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	export_var(char **args, char **env)
 				edit_var(args[i], env, j);
 		}
 		else
-			g_exit_status = EXIT_FAILURE;
+			g_data.exit_status = EXIT_FAILURE;
 		i++;
 	}
 }
@@ -86,7 +86,7 @@ void	export_declare(char **env)
 	}
 }
 
-void	re_export(char	**args, char **env)
+void	re_export(char **args, char **env)
 {
 	if (args[1])
 	{

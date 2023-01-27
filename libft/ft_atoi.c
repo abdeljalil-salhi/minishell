@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/14 11:50:45 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/26 22:48:05 by absalhi          ###   ########.fr       */
+/*   Created: 2023/01/27 01:56:01 by absalhi           #+#    #+#             */
+/*   Updated: 2023/01/27 01:58:39 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**clean_parenthese(char **ps)
+int	ft_isdigit(int c)
 {
-	(void)ps;
-	return (NULL);
+	return (47 < c && c < 58);
 }
 
-void	parsing(char *input)
+int	ft_atoi(const char *str)
 {
-	char	**ps;
+	int	n;
+	int	i;
+	int	s;
 
-	g_data.errors = 0;
-	ps = lexer(input);
- 	// ps = clean_parenthese(ps);
-	// unneccesery parenthese and doubled parenthese(maybe should exit as syntax error)
-	if (syntax_error(ps))
-	{
-		g_data.errors = 1;
-		free(input);
-		ft_freearr(ps);
-		return ;
-	}
-	parser(ps);
-	ft_freearr(ps);
-	free(input);
+	s = 1;
+	n = 0;
+	i = 0;
+	while (str[i] == 32 || (8 < str[i] && str[i] < 14))
+		i++;
+	if (str[i] == 43 || str[i] == 45)
+		if (str[i++] == 45)
+			s *= -1;
+	while (ft_isdigit(str[i]))
+		n = n * 10 + str[i++] - 48;
+	return (n * s);
 }

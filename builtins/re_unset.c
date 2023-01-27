@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:54:16 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 12:59:17 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/27 00:25:38 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	re_unset(char **args, char **env)
 		if (!validate(args[i]))
 		{
 			printf("bash: unset: `%s': not a valid identifier\n", args[i]);
-			g_exit_status = EXIT_FAILURE;
+			g_data.exit_status = EXIT_FAILURE;
 		}
 		else
 			env = update_env(args[i], env);

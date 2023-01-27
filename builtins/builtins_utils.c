@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 20:01:26 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 12:56:15 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:29:55 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	cd_home(char **env)
 	if (!check_home(env))
 	{
 		printf("minishell: cd: HOME not set\n");
-		g_exit_status = EXIT_FAILURE;
+		g_data.exit_status = EXIT_FAILURE;
 	}
 	else
 	{
@@ -118,7 +118,7 @@ void	cd_home(char **env)
 		if (i)
 		{
 			printf("minishell: cd: %s: No such file or directory\n", path);
-			g_exit_status = EXIT_FAILURE;
+			g_data.exit_status = EXIT_FAILURE;
 			return ;
 		}
 		set_pwd(env);

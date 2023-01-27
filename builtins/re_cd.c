@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:54 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 12:20:28 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:29:55 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	re_cd(char **args, char **env)
 		if (i == -1)
 		{
 			printf("minishell: cd: %s: No such file or directory\n", args[1]);
-			g_exit_status = 1;
+			g_data.exit_status = 1;
 			return ;
 		}
 		set_pwd(env);

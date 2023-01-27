@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:13:16 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 13:30:00 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:47:44 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clear_list(t_data *data)
+void	clear_list(void)
 {
 	t_proc	*pc_tmp;
 	t_redir	*rd_tmp;
 
-	while (data->head)
+	while (g_data.head)
 	{
-		pc_tmp = data->head;
+		pc_tmp = g_data.head;
 		while (pc_tmp->head)
 		{
 			rd_tmp = pc_tmp->head;
@@ -27,18 +27,18 @@ void	clear_list(t_data *data)
 			free(rd_tmp);
 			rd_tmp = NULL;
 		}
-		data->head = data->head->next;
+		g_data.head = g_data.head->next;
 		free(pc_tmp);
 		pc_tmp = NULL;
 	}
 }
 
-void	clear(t_data *data)
+void	clear(void)
 {
 	t_proc	*tmp1;
 	t_redir	*tmp2;
 
-	tmp1 = data->head;
+	tmp1 = g_data.head;
 	while (tmp1)
 	{
 		tmp2 = tmp1->head;
@@ -52,5 +52,5 @@ void	clear(t_data *data)
 			ft_freearr(tmp1->args);
 		tmp1 = tmp1->next;
 	}
-	clear_list(data);
+	clear_list();
 }

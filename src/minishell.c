@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:44:18 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 14:54:06 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:47:06 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	t_data	data;
 	char	*input;
 
 	(void)argc;
 	(void)argv;
-	(void)env;
-	data.env = ft_tabdup(env);
+	init_builtins();
+	g_data.env = ft_tabdup(env);
 	while (1)
 	{
 		signal(SIGQUIT, SIG_IGN);
@@ -29,9 +28,12 @@ int	main(int argc, char **argv, char **env)
 		if (empty(input))
 			continue ;
 		add_history(input);
-		parsing(input, &data);
-		if (data.errors)
+		parsing(input);
+		if (g_data.errors)
 			continue ;
-		clear(&data);
+		if (DEBUG)
+			printf_struct();
+		supervisor();
+		clear();
 	}
 }

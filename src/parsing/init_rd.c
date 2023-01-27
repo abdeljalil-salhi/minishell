@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:23:05 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/19 16:39:11 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/26 22:50:19 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ void	fill_rd(t_proc *tmp, char ***buffer)
 	}
 }
 
-void	init_rd(t_data *data)
+void	init_rd(void)
 {
 	t_proc	*tmp;
 	char	**buffer;
 
-	tmp = data->head;
+	tmp = g_data.head;
 	while (tmp)
 	{
 		buffer = NULL;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:32 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 11:56:56 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:55:03 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ void	n_option(char **args)
 		print_args(args + 1, 1);
 }
 
-void	re_echo(char **args)
+void	re_echo(char **args, char **env)
 {
+	(void) env;
 	if (!args[1])
 		printf("\n");
 	else if (args[1][0] == '-')
