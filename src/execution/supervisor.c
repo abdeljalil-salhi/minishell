@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/28 11:27:02 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/28 14:15:43 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 	int		pipe_stdin = dup(0);
 
 	if (!proc->cmd)
-	{
-		printf("minishell: %s: command not found\n", proc->args[0]);
 		return (127);
-	}
 	if (is_builtin(proc->cmd))
 	{
 		if (proc->previous && proc->previous->separator == PIPE_TOKEN)
@@ -57,11 +54,13 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 			dup2(_pipe[1], 1);
 			close(_pipe[1]);
 		}
-		execve(proc->cmd, proc->args, g_data.env);
-		printf("errno %d\n", (*__error()));
-		printf("Error: command not found or failed to execute\n");
-		printf("   ~ path: %s\n", proc->cmd);
-		exit(EXIT_FAILURE);
+		if (execve(proc->cmd, proc->args, g_data.env) == -1)
+		{
+			printf("errno %d\n", (*__error()));
+			printf("Error: command not found or failed to execute\n");
+			printf("   ~ path: %s\n", proc->cmd);
+			exit(EXIT_FAILURE);
+		}
 	}
 	else if (pid > 0)
 	{
@@ -82,10 +81,16 @@ void	supervisor(void)
 	int		i;
 
 	current = g_data.head;
-	i = 0;
 	while (current)
 	{
-		pipe(i % 2 ? prev_pipe : _pipe);
+		if (!current->cmd)
+			printf("minishell: %s: command not found\n", current->args[0]);
+		current = current->next;
+	}
+	i = -1;
+	current = g_data.head;
+	while (current)
+	{
 		if (DEBUG)
 		{
 			printf("   ~ current->cmd = %s\n", current->cmd);
@@ -93,6 +98,7 @@ void	supervisor(void)
 			printf("   ~ current->level = %d\n", current->level);
 			printf("   ~ current->next = %p\n", current->next);
 		}
+		pipe(i % 2 ? prev_pipe : _pipe);
 		g_data.exit_status = executor(current, i % 2 ? prev_pipe : _pipe, i % 2 ? _pipe : prev_pipe);
 		current = current->next;
 		i++;
