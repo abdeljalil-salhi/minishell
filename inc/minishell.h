@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/28 07:55:32 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:21:05 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ enum e_separator
 	<-- man parsing -->
 	- redirection struct :
 	 + type : type of next separator (check separators enum ^)
-	 + fd : file descriptor in success, -1 if permission denied -2 if no such file
-	 + file : file path, delimiter in Herdoc
+	 + fd : file descriptor in success, -1 if permission denied -2 if no such file,
+	 		-3 if here_doc
+	 + file : file path, delimiter in here_doc
 
 	- process struct :
 	 + cmd : command absolute path, NULL if command not found, empty str if no command (< filein > fileout)

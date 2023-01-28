@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:45:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 04:13:32 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/28 15:47:57 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	open_files(void)
 			if (tmp2->type == INPUT)
 				tmp2->fd = open(tmp2->file, O_RDONLY);
 			else if (tmp2->type == OUTPUT)
-				tmp2->fd = open(tmp2->file, O_WRONLY);
+				tmp2->fd = open(tmp2->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			else if (tmp2->type == APPEND)
-				tmp2->fd = open(tmp2->file, O_WRONLY);
+				tmp2->fd = open(tmp2->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 			else if (tmp2->type == HEREDOC)
 				tmp2->fd = -3;
 			if (tmp2->fd == -1)

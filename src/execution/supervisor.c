@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/28 14:15:43 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/28 16:23:01 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 {
 	pid_t	pid;
 	int		status;
+	t_redir	*current;
 	int		pipe_stdout = dup(1);
 	int		pipe_stdin = dup(0);
 
@@ -32,6 +33,33 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 		{
 			dup2(_pipe[1], 1);
 			close(_pipe[1]);
+		}
+		current = proc->head;
+		while (current)
+		{
+			if (current->fd == -1)
+			{
+				dup2(STDERR_FILENO, STDOUT_FILENO);
+				printf("minishell: %s: Permission denied\n", current->file);
+				return (EXIT_FAILURE);
+			}
+			if (current->fd == -2)
+			{
+				dup2(STDERR_FILENO, STDOUT_FILENO);
+				printf("minishell: %s: No such file or directory\n", current->file);
+				return (EXIT_FAILURE);
+			}
+			if (current->type == INPUT)
+			{
+				dup2(current->fd, 0);
+				close(current->fd);
+			}
+			else if (current->type == OUTPUT || current->type == APPEND)
+			{
+				dup2(current->fd, 1);
+				close(current->fd);
+			}
+			current = current->next;
 		}
 		status = exec_builtin(proc->cmd, proc->args);
 		dup2(pipe_stdout, 1);
@@ -54,12 +82,38 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 			dup2(_pipe[1], 1);
 			close(_pipe[1]);
 		}
+		current = proc->head;
+		while (current)
+		{
+			if (current->fd == -1)
+			{
+				dup2(STDERR_FILENO, STDOUT_FILENO);
+				printf("minishell: %s: Permission denied\n", current->file);
+				exit(EXIT_FAILURE);
+			}
+			if (current->fd == -2)
+			{
+				dup2(STDERR_FILENO, STDOUT_FILENO);
+				printf("minishell: %s: No such file or directory\n", current->file);
+				exit(EXIT_FAILURE);
+			}
+			if (current->type == INPUT)
+			{
+				dup2(current->fd, 0);
+				close(current->fd);
+			}
+			else if (current->type == OUTPUT || current->type == APPEND)
+			{
+				dup2(current->fd, 1);
+				close(current->fd);
+			}
+			current = current->next;
+		}
 		if (execve(proc->cmd, proc->args, g_data.env) == -1)
 		{
-			printf("errno %d\n", (*__error()));
-			printf("Error: command not found or failed to execute\n");
-			printf("   ~ path: %s\n", proc->cmd);
-			exit(EXIT_FAILURE);
+			dup2(STDERR_FILENO, STDOUT_FILENO);
+			printf("minishell: %s: Permission denied\n", proc->cmd);
+			exit(126);
 		}
 	}
 	else if (pid > 0)
@@ -80,6 +134,8 @@ void	supervisor(void)
 	int		prev_pipe[2];
 	int		i;
 
+	// to-do fach nfi9 hh;
+	// go through the list and run any here-documents first
 	current = g_data.head;
 	while (current)
 	{
