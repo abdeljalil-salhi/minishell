@@ -13,15 +13,15 @@
 ---
 
 # parsing : 90%
- - handle (ctrl+C , ctrl+D , ctrl+\) signals
- - lexical analyse (split input into : words, special characteres('>' '<' '(' ')' '|' '&' ))
- - check for syntax errors (unclosed quotes, invalid form of ">> << > < && || |", ......)
- - initialize proc linked list and rdirections list
- - get commands absolute path
- - open files and get file descriptors
- - remove unneccesery quotes and expand environement values
- - clear function (free allocated memory)
- - BULITINS (for execution part);
+ - [X] handle (ctrl+C , ctrl+D , ctrl+\) signals
+ - [X] lexical analyse (split input into : words, special characteres('>' '<' '(' ')' '|' '&' ))
+ - [X] check for syntax errors (unclosed quotes, invalid form of ">> << > < && || |", ......)
+ - [X] initialize proc linked list and rdirections list
+ - [X] get commands absolute path
+ - [X] open files and get file descriptors
+ - [X] remove unneccesery quotes and expand environement values
+ - [X] clear function (free allocated memory)
+ - [X] BULITINS (for execution part);
 
 # execution : 30%
  - [X] execute commands
