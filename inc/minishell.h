@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 04:36:06 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/28 07:55:32 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 
 # define GREEN "\e[01;32m"
 # define RESET "\e[00m"
@@ -186,7 +187,7 @@ void	re_unset(char **args);
 
 /* ------------- execution ------------- */
 void	supervisor(void);
-int		executor(t_proc *proc);
+int		executor(t_proc *proc, int _pipe[2], int prev_pipe[2]);
 int		exit_status(int status);
 int		is_builtin(char *cmd);
 int		exec_builtin(char *cmd, char **args);
