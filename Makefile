@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/29 07:52:35 by absalhi          ###   ########.fr        #
+#    Updated: 2023/01/29 14:27:32 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,10 +55,11 @@ install_readline:
 	@which -s brew
 	@if [[ $$? != 0 ]] ; then \
 		echo "Installing Homebrew..."; \
-		cd ~/goinfre && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew; \
-		cd ~/goinfre && eval "$$(homebrew/bin/brew shellenv)"; \
-		cd ~/goinfre && brew update --force --quiet; \
-		cd ~/goinfre && chmod -R go-w "$$(brew --prefix)/share/zsh"; \
+		cd ~/goinfre; \
+		mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew; \
+		eval "$$(homebrew/bin/brew shellenv)"; \
+		brew update --force --quiet; \
+		chmod -R go-w "$$(brew --prefix)/share/zsh"; \
 		echo "Installing readline..."; \
 		brew install -q readline; \
 	else \

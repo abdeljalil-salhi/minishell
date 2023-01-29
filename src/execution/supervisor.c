@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/29 12:48:50 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 14:48:43 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void	inspector(void)
 	int		_pipe[2];
 	int		prev_pipe[2];
 	int		i;
+	int		level;
 
 	i = -1;
 	current = g_data.head;
@@ -158,8 +159,26 @@ void	inspector(void)
 		pipe(i % 2 ? prev_pipe : _pipe);
 		g_data.exit_status = executor(current, current->level,
 				i % 2 ? prev_pipe : _pipe, i % 2 ? _pipe : prev_pipe);
-		current = current->next;
+		if (g_data.exit_status && current->separator == AND_TOKEN)
+		{
+			level = current->level;
+			while (current && (current->separator == AND_TOKEN
+				|| current->separator == PIPE_TOKEN) && current->level >= level)
+				current = current->next;
+			i = -1;
+		}
+		if (g_data.exit_status == 0 && current->separator == OR_TOKEN)
+		{
+			level = current->level;
+			while (current && (current->separator == OR_TOKEN
+				|| current->separator == PIPE_TOKEN) && current->level >= level)
+				current = current->next;
+			i = -1;
+		}
 		i++;
+		if (current->separator != PIPE_TOKEN)
+			i = -1;
+		current = current->next;
 	}
 	close(_pipe[0]), close(_pipe[1]);
 	close(prev_pipe[0]), close(prev_pipe[1]);
@@ -169,7 +188,6 @@ void	supervisor(void)
 {
 	t_proc	*current;
 	t_redir	*redir;
-	int		i;
 
 	current = g_data.head;
 	while (current)
@@ -196,23 +214,6 @@ void	supervisor(void)
 			dup2(STDOUT_FILENO, STDERR_FILENO);
 		}
 		current = current->next;
-	}
-	i = -1;
-	current = g_data.head;
-	while (current)
-	{
-		if (DEBUG)
-		{
-			printf("   ~ current->cmd = %s\n", current->cmd);
-			printf("   ~ current->separator = %d\n", current->separator);
-			printf("   ~ current->level = %d\n", current->level);
-			printf("   ~ current->next = %p\n", current->next);
-		}
-		// pipe(i % 2 ? prev_pipe : _pipe);
-		// g_data.exit_status = executor(current, current->level,
-		// 		i % 2 ? prev_pipe : _pipe, i % 2 ? _pipe : prev_pipe);
-		current = current->next;
-		i++;
 	}
 	inspector();
 	

@@ -23,13 +23,13 @@
  - [X] clear function (free allocated memory)
  - [X] BULITINS (for execution part);
 
-# execution : 30%
+# execution : 60%
  - [X] execute commands
  - [X] execute builtins
  - [X] pipes
  - [X] redirections
- - [ ] AND
- - [ ] OR
+ - [X] AND
+ - [X] OR
  - [ ] semicolon
  - [ ] wildcards
  - [ ] priorities
