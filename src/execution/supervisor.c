@@ -6,13 +6,13 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/29 08:46:36 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 12:48:50 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
+int	executor(t_proc *proc, int level, int _pipe[2], int prev_pipe[2])
 {
 	pid_t	pid;
 	int		status;
@@ -20,6 +20,7 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 	int		pipe_stdout = dup(1);
 	int		pipe_stdin = dup(0);
 
+	(void) level;
 	if (!proc->cmd)
 		return (127);
 	if (proc->cmd[0] == '\0')
@@ -143,12 +144,31 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 	return (exit_status(status));
 }
 
+void	inspector(void)
+{
+	t_proc	*current;
+	int		_pipe[2];
+	int		prev_pipe[2];
+	int		i;
+
+	i = -1;
+	current = g_data.head;
+	while (current)
+	{
+		pipe(i % 2 ? prev_pipe : _pipe);
+		g_data.exit_status = executor(current, current->level,
+				i % 2 ? prev_pipe : _pipe, i % 2 ? _pipe : prev_pipe);
+		current = current->next;
+		i++;
+	}
+	close(_pipe[0]), close(_pipe[1]);
+	close(prev_pipe[0]), close(prev_pipe[1]);
+}
+
 void	supervisor(void)
 {
 	t_proc	*current;
 	t_redir	*redir;
-	int		_pipe[2];
-	int		prev_pipe[2];
 	int		i;
 
 	current = g_data.head;
@@ -188,14 +208,15 @@ void	supervisor(void)
 			printf("   ~ current->level = %d\n", current->level);
 			printf("   ~ current->next = %p\n", current->next);
 		}
-		pipe(i % 2 ? prev_pipe : _pipe);
-		g_data.exit_status = executor(current, i % 2 ? prev_pipe : _pipe, i % 2 ? _pipe : prev_pipe);
+		// pipe(i % 2 ? prev_pipe : _pipe);
+		// g_data.exit_status = executor(current, current->level,
+		// 		i % 2 ? prev_pipe : _pipe, i % 2 ? _pipe : prev_pipe);
 		current = current->next;
 		i++;
 	}
-	close(_pipe[0]), close(_pipe[1]);
-	close(prev_pipe[0]), close(prev_pipe[1]);
+	inspector();
 	
+	// refactor this later v
 	int		res;
 	char	*line;
 	
