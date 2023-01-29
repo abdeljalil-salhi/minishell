@@ -22,6 +22,7 @@
  - [X] remove unneccesery quotes and expand environement values
  - [X] clear function (free allocated memory)
  - [X] BULITINS (for execution part);
+ - [ ] wildcards
 
 # execution : 60%
  - [X] execute commands
@@ -31,7 +32,6 @@
  - [X] AND
  - [X] OR
  - [ ] semicolon
- - [ ] wildcards
  - [ ] priorities
  - [X] history
  - [ ] aliases
