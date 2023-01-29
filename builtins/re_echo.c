@@ -42,8 +42,15 @@ int	only_n(char *str)
 
 void	n_option(char **args)
 {
-	if (!only_n(args[1] + 1))
-		print_args(args + 2, 0);
+	int	i;
+
+	i = 1;
+	if (!only_n(args[i] + 1))
+	{
+		while (args[i][0] == '-' && !only_n(args[i] + 1))
+			i++;	
+		print_args(args + i, 0);
+	}
 	else
 		print_args(args + 1, 1);
 }
