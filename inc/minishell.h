@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/28 16:21:05 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 00:35:57 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int		parentheses_check(char **lx, int i, int *x, int *y);
 void	init_list(char **lx);
 void	init_rd(void);
 int		get_separator(char **lx, int i);
+char	*del_quote(char *str);
 
 /* ------------- builtins ------------- */
 void	init_builtins(void);

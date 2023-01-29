@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:54 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/28 00:14:17 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 01:04:43 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	set_oldpwd(void)
 	int		i;
 
 	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return ;
 	i = 0;
 	while (g_data.env[i])
 	{
@@ -99,4 +101,6 @@ void	re_cd(char **args)
 		}
 		set_pwd();
 	}
+	else if (!getcwd(NULL, 0))
+		printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
 }

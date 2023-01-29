@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:50:45 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/26 22:48:05 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 00:20:57 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**clean_parenthese(char **ps)
-{
-	(void)ps;
-	return (NULL);
-}
 
 void	parsing(char *input)
 {
@@ -24,8 +18,6 @@ void	parsing(char *input)
 
 	g_data.errors = 0;
 	ps = lexer(input);
- 	// ps = clean_parenthese(ps);
-	// unneccesery parenthese and doubled parenthese(maybe should exit as syntax error)
 	if (syntax_error(ps))
 	{
 		g_data.errors = 1;

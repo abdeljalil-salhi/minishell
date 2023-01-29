@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:55:55 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 04:11:34 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 01:01:24 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	re_pwd(char **args)
 
 	(void) args;
 	pwd = getcwd(NULL, 0);
-	if (!pwd)
-		printf("minishell: error retrieving current directory\n");
-	printf("%s\n", pwd);
+	if (pwd)
+		printf("%s\n", pwd);
 	free(pwd);
 }

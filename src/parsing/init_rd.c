@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:23:05 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/26 22:50:19 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 00:34:52 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,20 @@ void	fill_rd(t_proc *tmp, char ***buffer)
 	}
 }
 
+void	expand_files(t_proc *proc)
+{
+	t_redir	*ptr;
+
+	ptr = proc->head;
+	while (ptr)
+	{
+		ptr->file = expand(ptr->file);
+		if (ft_strchr(ptr->file, '\'') || ft_strchr(ptr->file, '"'))
+			ptr->file = del_quote(ptr->file);
+		ptr = ptr->next;
+	}
+}
+
 void	init_rd(void)
 {
 	t_proc	*tmp;
@@ -99,6 +113,7 @@ void	init_rd(void)
 		}
 		else
 			tmp->head = NULL;
+		expand_files(tmp);
 		tmp = tmp->next;
 	}
 }
