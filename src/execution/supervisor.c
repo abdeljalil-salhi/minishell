@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/28 16:23:01 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 07:04:13 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 
 	if (!proc->cmd)
 		return (127);
+	if (proc->cmd[0] == '\0')
+		return (0);
 	if (is_builtin(proc->cmd))
 	{
 		if (proc->previous && proc->previous->separator == PIPE_TOKEN)
@@ -41,12 +43,14 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 			{
 				dup2(STDERR_FILENO, STDOUT_FILENO);
 				printf("minishell: %s: Permission denied\n", current->file);
+				dup2(STDOUT_FILENO, STDERR_FILENO);
 				return (EXIT_FAILURE);
 			}
 			if (current->fd == -2)
 			{
 				dup2(STDERR_FILENO, STDOUT_FILENO);
 				printf("minishell: %s: No such file or directory\n", current->file);
+				dup2(STDOUT_FILENO, STDERR_FILENO);
 				return (EXIT_FAILURE);
 			}
 			if (current->type == INPUT)
@@ -140,7 +144,11 @@ void	supervisor(void)
 	while (current)
 	{
 		if (!current->cmd)
+		{
+			dup2(STDERR_FILENO, STDOUT_FILENO);
 			printf("minishell: %s: command not found\n", current->args[0]);
+			dup2(STDOUT_FILENO, STDERR_FILENO);
+		}
 		current = current->next;
 	}
 	i = -1;
