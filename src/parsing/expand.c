@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:24:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 04:15:28 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 23:00:08 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	get_env_value(char **buffer, char *str, int *i)
 
 	(*i)++;
 	j = *i;
-	while (str[*i] && str[*i] != '$' && str[*i] != ' '
+	while (str[*i] && str[*i] != '$' && str[*i] != SPACE && str[*i] != TAB
 		&& str[*i] != SINGLE_QUOTE && str[*i] != DOUBLE_QUOTE)
 		(*i)++;
 	ptr1 = ft_substr(str, j, *i - j);
@@ -78,30 +78,37 @@ void	get_env_value(char **buffer, char *str, int *i)
 	free(ptr1);
 }
 
-void	set_quotes(char *str, int i, int *s_quote, int *d_quote)
+void	set_quotes(char *str, int i, int *key)
 {
-	if (str[i] == SINGLE_QUOTE)
-		(*s_quote)++;
-	else if (str[i] == DOUBLE_QUOTE)
-		(*d_quote)++;
+	if (str[i] == DOUBLE_QUOTE && *key != 3)
+	{
+		if (*key == 2)
+			*key = 1;
+		else
+			*key = 2;
+	}
+	else if (str[i] == SINGLE_QUOTE && *key != 2)
+	{
+		if (*key == 3)
+			*key = 1;
+		else
+			*key = 3;
+	}
 }
 
 char	*expand(char *str)
 {
-	int		s_quote;
-	int		d_quote;
+	int		key;
 	char	*buffer;
 	int		i;
 
 	i = 0;
-	s_quote = 0;
-	d_quote = 0;
+	key = 1;
 	buffer = NULL;
 	while (str[i])
 	{
-		set_quotes(str, i, &s_quote, &d_quote);
-		if (str[i] == '$' && str[i + 1] && (d_quote % 2
-				|| (d_quote % 2 == 0 && s_quote % 2 == 0)))
+		set_quotes(str, i, &key);
+		if (str[i] == '$' && str[i + 1] && key != 3)
 			get_env_value(&buffer, str, &i);
 		else
 			buffer = str_concate(buffer, str[i++]);

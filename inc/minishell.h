@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/29 09:41:50 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 22:41:54 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ enum e_token
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '"',
 	SPACE = ' ',
+	TAB = '\t',
 	QUESTION_MARK = '?',
 	AMPERSAND = '&',
 	OPEN_PARENTHESE = '(',

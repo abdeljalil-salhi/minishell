@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 12:28:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/14 12:28:51 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:43:24 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	space_skiper(char *str, int *i)
 {
-	while (str[*i] == SPACE)
+	while (str[*i] == SPACE || str[*i] == TAB)
 		(*i)++;
 }

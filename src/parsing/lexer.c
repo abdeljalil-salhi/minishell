@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:55:01 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/21 17:32:47 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/29 22:42:55 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**lexer(char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == SPACE)
+		if (input[i] == SPACE || input[i] == TAB)
 			space_skiper(input, &i);
 		else if (input[i] == SINGLE_QUOTE || input[i] == DOUBLE_QUOTE)
 			quote_analyse(&buffer, input, &i);

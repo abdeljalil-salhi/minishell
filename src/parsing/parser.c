@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:45:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/29 08:32:51 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 23:06:32 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	parser(char **lx)
 	tmp = g_data.head;
 	while (tmp)
 	{
+		// wildcard(tmp);
 		quote_expand(tmp);
 		tmp = tmp->next;
 	}
