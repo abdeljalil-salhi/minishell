@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/29 08:35:40 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 08:46:36 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,4 +195,24 @@ void	supervisor(void)
 	}
 	close(_pipe[0]), close(_pipe[1]);
 	close(prev_pipe[0]), close(prev_pipe[1]);
+	
+	int		res;
+	char	*line;
+	
+	current = g_data.head;
+	while (current)
+	{
+		redir = current->head;
+		while (redir)
+		{
+			if (redir->type == HEREDOC)
+			{
+				res = read(redir->fd, &line, 0);
+				if (!(res < 0 && errno == EBADF))
+					close(redir->fd);
+			}
+			redir = redir->next;
+		}
+		current = current->next;
+	}
 }
