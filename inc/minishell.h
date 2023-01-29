@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/29 00:35:57 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/29 08:09:56 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define RESET "\e[00m"
 # define RED "\e[00;31m"
 # define NAME "minishell-3.2$ "
+# define HERE_DOC "/tmp/.heredoc"
 
 # ifndef DEBUG
 #  define DEBUG 0
@@ -193,6 +194,7 @@ int		executor(t_proc *proc, int _pipe[2], int prev_pipe[2]);
 int		exit_status(int status);
 int		is_builtin(char *cmd);
 int		exec_builtin(char *cmd, char **args);
+void	exec_heredoc(t_redir *current);
 
 /* ------------- debugging ------------- */
 void	printf_struct(void);

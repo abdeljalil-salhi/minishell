@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/29 07:04:13 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 08:35:40 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 				dup2(current->fd, 1);
 				close(current->fd);
 			}
+			else if (current->type == HEREDOC)
+			{
+				current->fd = open(HERE_DOC, O_RDONLY, 0644);
+				dup2(current->fd, 0);
+				close(current->fd);
+			}
 			current = current->next;
 		}
 		status = exec_builtin(proc->cmd, proc->args);
@@ -111,6 +117,12 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 				dup2(current->fd, 1);
 				close(current->fd);
 			}
+			else if (current->type == HEREDOC)
+			{
+				current->fd = open(HERE_DOC, O_RDONLY, 0644);
+				dup2(current->fd, 0);
+				close(current->fd);
+			}
 			current = current->next;
 		}
 		if (execve(proc->cmd, proc->args, g_data.env) == -1)
@@ -134,12 +146,26 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 void	supervisor(void)
 {
 	t_proc	*current;
+	t_redir	*redir;
 	int		_pipe[2];
 	int		prev_pipe[2];
 	int		i;
 
-	// to-do fach nfi9 hh;
-	// go through the list and run any here-documents first
+	current = g_data.head;
+	while (current)
+	{
+		if (current->head)
+		{
+			redir = current->head;
+			while (redir)
+			{
+				if (redir->type == HEREDOC)
+					exec_heredoc(redir);
+				redir = redir->next;
+			}
+		}
+		current = current->next;
+	}
 	current = g_data.head;
 	while (current)
 	{

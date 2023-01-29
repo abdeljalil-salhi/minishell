@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:45:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/28 15:47:57 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/29 08:32:51 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	open_files(void)
 		while (tmp2)
 		{
 			if (tmp2->type == INPUT)
-				tmp2->fd = open(tmp2->file, O_RDONLY);
+				tmp2->fd = open(tmp2->file, O_RDONLY, 0644);
 			else if (tmp2->type == OUTPUT)
 				tmp2->fd = open(tmp2->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			else if (tmp2->type == APPEND)

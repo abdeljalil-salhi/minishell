@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:23:05 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/29 00:34:52 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/29 08:33:46 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	is_arrow(char *str)
 	else if (!ft_strcmp(str, "<"))
 		return (INPUT);
 	else if (!ft_strcmp(str, "<<"))
-		return (APPEND);
+		return (HEREDOC);
 	return (-1);
 }
 
