@@ -27,7 +27,7 @@
  - [X] execute commands
  - [X] execute builtins
  - [X] pipes
- - [ ] redirections
+ - [X] redirections
  - [ ] AND
  - [ ] OR
  - [ ] semicolon
