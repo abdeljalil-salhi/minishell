@@ -6,14 +6,16 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/28 14:14:28 by absalhi          ###   ########.fr        #
+#    Updated: 2023/01/29 06:04:59 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-INC = -I inc -I ~/goinfre/homebrew/opt/readline/include/readline/
-CFLAGS = -Wall -Wextra -Werror $(INC) -fsanitize=address -g3
-READLINE = -lreadline -L ~/goinfre/homebrew/opt/readline/lib/
+# INC = -I inc -I ~/goinfre/homebrew/opt/readline/include/readline/
+INC = -I inc -I readline/include/readline/
+CFLAGS = -Wall -Wextra -Werror $(INC)
+# READLINE = -lreadline -L ~/goinfre/homebrew/opt/readline/lib/
+READLINE = -lreadline -L readline/lib/
 
 LIBFT = libft/ft_strlen.c libft/ft_strdup.c libft/ft_freearr.c libft/ft_tabsize.c\
 	libft/ft_strcmp.c libft/ft_subarr.c libft/ft_strcjoin.c libft/ft_split.c \
