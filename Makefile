@@ -6,7 +6,7 @@
 #    By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/30 06:48:58 by mtellami         ###   ########.fr        #
+#    Updated: 2023/01/30 08:51:08 by mtellami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ EXEC = $(addprefix src/execution/, $(_EXEC))
 _DEBUG = print_struct.c
 DEBUG = $(addprefix src/debug/, $(_DEBUG))
 
-SRCS = src/minishell.c src/clear.c
+SRCS = src/minishell.c src/clear.c src/prompt.c
 
 OBJS = $(SRCS:.c=.o) $(LIBFT:.c=.o) $(PARSE:.c=.o) $(EXEC:.c=.o)\
 	$(BUILTINS:.c=.o) $(DEBUG:.c=.o)

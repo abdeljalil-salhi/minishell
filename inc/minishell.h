@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 07:21:15 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 08:50:53 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@
 # include <errno.h>
 # include <dirent.h>
 
-# define GREEN "\e[01;32m"
-# define RESET "\e[00m"
+# define GREEN "\e[01;32m➜  "
+# define RESET " \e[00m"
 # define RED "\e[00;31m"
-# define NAME "minishell-3.2$ "
 # define HERE_DOC "/tmp/.heredoc"
 
 # ifndef DEBUG
@@ -174,6 +173,7 @@ int		get_separator(char **lx, int i);
 char	*del_quote(char *str);
 void	wildcard(t_proc *proc);
 char	**get_dir_files(char *str);
+char	*prompt(void);
 
 /* ------------- builtins ------------- */
 void	init_builtins(void);
@@ -185,7 +185,7 @@ char	*home_path(void);
 void	sort_env(void);
 void	set_pwd(void);
 int		valid_ident(char *str);
-void	set_oldpwd();
+void	set_oldpwd(void);
 void	re_cd(char **args);
 void	re_echo(char **args);
 void	re_env(char **args);

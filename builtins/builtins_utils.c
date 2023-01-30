@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 20:01:26 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 06:59:37 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 08:52:17 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	cd_home(void)
 	}
 	else
 	{
-		set_oldpwd(g_data.env);
+		set_oldpwd();
 		path = home_path();
 		i = chdir(path);
 		if (i)
