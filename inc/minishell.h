@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 08:50:53 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:46:43 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,10 +157,8 @@ void	buffer_reset(char **buffer);
 void	parser(char **lx);
 t_proc	*pc_new_node(char **args, int sep, int lvl);
 void	pc_addback(t_proc **lst, t_proc *new);
-t_proc	*pc_last_node(t_proc *lst);
 char	**ft_subarr(char **tab, int start, int size);
 void	rd_addback(t_redir **head, t_redir *new);
-t_redir	*rd_last_node(t_redir *lst);
 t_redir	*rd_new_node(char *file, int type);
 void	clear(void);
 char	*absolute_path(char *cmd);

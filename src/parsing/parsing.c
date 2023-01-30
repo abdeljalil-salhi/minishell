@@ -6,11 +6,55 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:50:45 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/29 00:20:57 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 11:53:10 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	not_metachar(char c)
+{
+	if (c != RIGHT_ARROW && c != LEFT_ARROW
+		&& c != PIPE && c != SPACE && c != TAB
+		&& c != AMPERSAND && c != OPEN_PARENTHESE
+		&& c != CLOSE_PARENTHESE)
+		return (1);
+	return (0);
+}
+
+void	space_skiper(char *str, int *i)
+{
+	while (str[*i] == SPACE || str[*i] == TAB)
+		(*i)++;
+}
+
+int	empty(char *input)
+{
+	int	i;
+
+	i = -1;
+	if (!input)
+	{
+		printf("exit\n");
+		exit(EXIT_SUCCESS);
+	}
+	while (input[++i])
+		if (input[i] != SPACE && input[i] != TAB)
+			return (0);
+	free(input);
+	return (1);
+}
+
+void	sig_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
 
 void	parsing(char *input)
 {

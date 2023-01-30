@@ -6,7 +6,7 @@
 #    By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/30 08:51:08 by mtellami         ###   ########.fr        #
+#    Updated: 2023/01/30 11:54:15 by mtellami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,10 @@ LIBFT = libft/ft_strlen.c libft/ft_strdup.c libft/ft_freearr.c libft/ft_tabsize.
 	libft/ft_strrchr.c \
 
 PARSE = src/parsing/parsing.c src/parsing/syntax_error.c src/parsing/lexer.c\
-	src/parsing/space_skiper.c src/parsing/arr_concate.c src/parsing/str_concate.c\
-	src/parsing/buffer_reset.c src/parsing/not_metachar.c src/parsing/parser.c\
-	src/parsing/lst_addback.c src/parsing/last_node.c src/parsing/newnode.c\
-	src/parsing/empty.c src/parsing/absolute_path.c src/parsing/expand.c\
-	src/parsing/sig_handler.c src/parsing/parentheses_check.c\
-	src/parsing/init_list.c src/parsing/init_rd.c src/parsing/wildcard.c\
-	src/parsing/get_separator.c src/parsing/readdir.c\
+	src/parsing/concate.c src/parsing/parser.c src/parsing/lst_addback.c\
+	src/parsing/newnode.c src/parsing/absolute_path.c src/parsing/expand.c\
+	src/parsing/parentheses_check.c src/parsing/init_list.c src/parsing/init_rd.c\
+	src/parsing/wildcard.c src/parsing/readdir.c\
 
 _BUILTINS = builtins_utils.c re_cd.c re_echo.c re_env.c re_exit.c re_export.c\
 	re_pwd.c re_unset.c
