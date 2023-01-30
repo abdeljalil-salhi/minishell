@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 07:48:27 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/29 08:35:42 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/30 19:12:20 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ void	exec_heredoc(t_redir *current)
 	current->fd = open(HERE_DOC, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (current->fd == -1)
 		return ;
-	while (1)
+	g_data.here_doc = 1;
+	while (g_data.here_doc)
 	{
 		line = readline("> ");
+		if (!line)
+			break ;
 		if (ft_strcmp(line, current->file) == 0)
 		{
 			free(line);
@@ -36,5 +39,6 @@ void	exec_heredoc(t_redir *current)
 		ft_putendl_fd(line, current->fd);
 		free(line);
 	}
+	g_data.here_doc = 0;
 	close(current->fd);
 }

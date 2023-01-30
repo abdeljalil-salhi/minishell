@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 08:48:57 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 13:19:35 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/30 16:14:27 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*prompt(void)
 	user = ft_strdup("$USER");
 	user = expand(user);
 	if (g_data.exit_status == 0)
-		color = GREEN;
+		color = GREEN_ARROW;
 	else
-		color = RED;
+		color = RED_ARROW;
 	if (ft_strlen(path) != ft_strlen(ft_strrchr(path, '/')))
 	{
 		if (!ft_strcmp(user, ft_strrchr(path, '/') + 1))

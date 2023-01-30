@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/30 14:18:33 by absalhi          ###   ########.fr        #
+#    Updated: 2023/01/30 18:50:17 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ _BUILTINS = builtins_utils.c re_cd.c re_echo.c re_env.c re_exit.c re_export.c\
 	re_pwd.c re_unset.c
 BUILTINS = $(addprefix builtins/, $(_BUILTINS))
 
-_EXEC = supervisor.c exec_command.c exec_builtin.c exec_heredoc.c
+_EXEC = supervisor.c exec_command.c exec_builtin.c exec_heredoc.c init_session.c
 EXEC = $(addprefix src/execution/, $(_EXEC))
 
 _DEBUG = print_struct.c
@@ -69,10 +69,7 @@ install_readline:
 	fi
 
 $(NAME) : $(OBJS)
-	@clear
-	@cat header
 	@cc $(CFLAGS) $(OBJS) $(READLINE) -o $(NAME)
-	@./$(NAME)
 
 debug : CFLAGS += -D DEBUG
 debug : fclean all

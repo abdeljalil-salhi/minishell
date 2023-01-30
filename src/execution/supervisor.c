@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/30 15:06:55 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/30 17:27:36 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ int	executor(t_proc *proc, int level, int _pipe[2], int prev_pipe[2])
 
 	(void) level;
 	if (!proc->cmd)
+	{
+		close(_pipe[1]);
+		close(prev_pipe[0]);
 		return (127);
+	}
 	if (proc->cmd[0] == '\0')
 		return (0);
 	if (is_builtin(proc->cmd))

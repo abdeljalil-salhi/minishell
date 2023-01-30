@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:44:18 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 08:50:35 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 19:16:26 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ int	main(int argc, char **argv, char **env)
 	char	*input;
 	char	*name;
 
-	(void)argc, (void)argv;
-	ft_bzero(&g_data, sizeof(t_data));
-	init_builtins();
-	g_data.env = ft_tabdup(env);
+	init_session(argc, argv, env);
 	while (1)
 	{
 		name = prompt();
