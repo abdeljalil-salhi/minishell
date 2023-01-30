@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+         #
+#    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/30 11:54:15 by mtellami         ###   ########.fr        #
+#    Updated: 2023/01/30 14:18:33 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,10 @@ install_readline:
 	fi
 
 $(NAME) : $(OBJS)
+	@clear
+	@cat header
 	@cc $(CFLAGS) $(OBJS) $(READLINE) -o $(NAME)
+	@./$(NAME)
 
 debug : CFLAGS += -D DEBUG
 debug : fclean all

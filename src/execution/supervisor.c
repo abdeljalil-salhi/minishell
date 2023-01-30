@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/30 13:21:47 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/30 15:06:55 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,11 @@ void	inspector(void)
 			while (current && ((current->separator == OR_TOKEN
 				|| current->separator == PIPE_TOKEN) || (current->separator == AND_TOKEN
 				&& current->level > level)) && current->level >= level)
+			{
+				if (current->separator == AND_TOKEN)
+					level = current->level;
 				current = current->next;
+			}
 			i = -1;
 		}
 		i++;
