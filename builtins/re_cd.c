@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:54 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/29 01:04:43 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 07:01:48 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	set_oldpwd(void)
 		}
 		i++;
 	}
+	free(cwd);
 }
 
 void	set_pwd(void)
@@ -48,6 +49,7 @@ void	set_pwd(void)
 		}
 		i++;
 	}
+	free(cwd);
 }
 
 int	check_home(void)
@@ -85,8 +87,10 @@ char	*home_path(void)
 
 void	re_cd(char **args)
 {
-	int	i;
+	char	*cwd;
+	int		i;
 
+	cwd = getcwd(NULL, 0);
 	if (!args[1])
 		cd_home();
 	else if (ft_strcmp(args[1], "."))
@@ -101,6 +105,7 @@ void	re_cd(char **args)
 		}
 		set_pwd();
 	}
-	else if (!getcwd(NULL, 0))
+	else if (!cwd)
 		printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+	free(cwd);
 }

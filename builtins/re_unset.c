@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:54:16 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 04:12:32 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/30 07:02:22 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	get_var(char *str)
 	while (g_data.env[i])
 	{
 		if (!ft_strncmp(str, g_data.env[i], ft_strlen(str)))
-			if (g_data.env[i][ft_strlen(str)] == '=' || !g_data.env[i][ft_strlen(str)])
+			if (g_data.env[i][ft_strlen(str)] == '='
+				|| !g_data.env[i][ft_strlen(str)])
 				return (i);
 		i++;
 	}

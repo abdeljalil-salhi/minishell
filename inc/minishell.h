@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/29 22:41:54 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 06:36:33 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+# include <dirent.h>
 
 # define GREEN "\e[01;32m"
 # define RESET "\e[00m"
@@ -141,6 +142,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_itoa(int n);
 char	*ft_strchr(char *str, int c);
 char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strrchr(char *str, int c);
 
 /* ------------- parsing ------------- */
 void	parsing(char *input);
@@ -169,6 +171,8 @@ void	init_list(char **lx);
 void	init_rd(void);
 int		get_separator(char **lx, int i);
 char	*del_quote(char *str);
+void	wildcard(t_proc *proc);
+char	**get_dir_files(char *str);
 
 /* ------------- builtins ------------- */
 void	init_builtins(void);

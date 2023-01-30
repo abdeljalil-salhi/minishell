@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
+#    By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/29 14:27:32 by absalhi          ###   ########.fr        #
+#    Updated: 2023/01/30 06:48:58 by mtellami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ READLINE = -lreadline -L ~/goinfre/homebrew/opt/readline/lib/
 LIBFT = libft/ft_strlen.c libft/ft_strdup.c libft/ft_freearr.c libft/ft_tabsize.c\
 	libft/ft_strcmp.c libft/ft_subarr.c libft/ft_strcjoin.c libft/ft_split.c \
 	libft/ft_strstr.c libft/ft_tabdup.c libft/ft_substr.c libft/ft_itoa.c\
-	libft/ft_strchr.c libft/ft_strjoin.c libft/ft_atoi.c libft/ft_bzero.c
+	libft/ft_strchr.c libft/ft_strjoin.c libft/ft_atoi.c libft/ft_bzero.c\
+	libft/ft_strrchr.c \
 
 PARSE = src/parsing/parsing.c src/parsing/syntax_error.c src/parsing/lexer.c\
 	src/parsing/space_skiper.c src/parsing/arr_concate.c src/parsing/str_concate.c\
@@ -26,7 +27,8 @@ PARSE = src/parsing/parsing.c src/parsing/syntax_error.c src/parsing/lexer.c\
 	src/parsing/lst_addback.c src/parsing/last_node.c src/parsing/newnode.c\
 	src/parsing/empty.c src/parsing/absolute_path.c src/parsing/expand.c\
 	src/parsing/sig_handler.c src/parsing/parentheses_check.c\
-	src/parsing/init_list.c src/parsing/init_rd.c
+	src/parsing/init_list.c src/parsing/init_rd.c src/parsing/wildcard.c\
+	src/parsing/get_separator.c src/parsing/readdir.c\
 
 _BUILTINS = builtins_utils.c re_cd.c re_echo.c re_env.c re_exit.c re_export.c\
 	re_pwd.c re_unset.c

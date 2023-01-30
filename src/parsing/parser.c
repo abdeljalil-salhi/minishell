@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:45:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/29 23:06:32 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 04:02:18 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	parser(char **lx)
 	tmp = g_data.head;
 	while (tmp)
 	{
-		// wildcard(tmp);
+		wildcard(tmp);
 		quote_expand(tmp);
 		tmp = tmp->next;
 	}

@@ -12,7 +12,7 @@
 
 ---
 
-# parsing : 85%
+# parsing : 90%
  - [X] handle (ctrl+C , ctrl+D , ctrl+\) signals
  - [X] lexical analyse (split input into : words, special characteres('>' '<' '(' ')' '|' '&' ))
  - [X] check for syntax errors (unclosed quotes, invalid form of ">> << > < && || |", ......)
@@ -22,7 +22,6 @@
  - [X] remove unneccesery quotes and expand environement values
  - [X] clear function (free allocated memory)
  - [X] BULITINS (for execution part);
- - [ ] wildcards
 
 # execution : 60%
  - [X] execute commands
@@ -32,6 +31,7 @@
  - [X] AND
  - [X] OR
  - [ ] semicolon
+ - [ ] wildcards
  - [ ] priorities
  - [X] history
  - [ ] aliases
