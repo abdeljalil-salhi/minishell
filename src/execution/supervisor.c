@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   supervisor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/30 11:37:32 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:21:47 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,6 @@ void	supervisor(void)
 	inspector();
 	
 	// refactor this later v
-	int		res;
 	char	*line;
 	
 	current = g_data.head;
@@ -229,11 +228,8 @@ void	supervisor(void)
 		while (redir)
 		{
 			if (redir->type == HEREDOC)
-			{
-				res = read(redir->fd, &line, 0);
-				if (!(res < 0 && errno == EBADF))
+				if (!(read(redir->fd, &line, 0) < 0 && errno == EBADF))
 					close(redir->fd);
-			}
 			redir = redir->next;
 		}
 		current = current->next;
