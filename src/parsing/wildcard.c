@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:12:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 07:35:15 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 22:58:05 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	wildcard(t_proc *proc)
 
 	i = 0;
 	buffer = NULL;
-	while (proc->args[i])
+	while (proc->args && proc->args[i])
 	{
 		if (is_wildcard(proc->args[i]))
 			buffer = expand_wildcard(buffer, proc->args[i]);
@@ -108,6 +108,7 @@ void	wildcard(t_proc *proc)
 			buffer = arr_concate(buffer, proc->args[i]);
 		i++;
 	}
-	ft_freearr(proc->args);
+	if (proc->args)
+		ft_freearr(proc->args);
 	proc->args = buffer;
 }

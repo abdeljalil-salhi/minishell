@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/30 17:27:36 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/30 23:16:46 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,12 @@ void	supervisor(void)
 			{
 				if (redir->type == HEREDOC)
 					exec_heredoc(redir);
+				else if (redir->type == INPUT && !current->cmd)
+				{
+					dup2(STDERR_FILENO, STDOUT_FILENO);
+					printf("minishell: %s: No such file or directory\n", redir->file);
+					dup2(STDOUT_FILENO, STDERR_FILENO);
+				}
 				redir = redir->next;
 			}
 		}
@@ -216,7 +222,7 @@ void	supervisor(void)
 	current = g_data.head;
 	while (current)
 	{
-		if (!current->cmd)
+		if (!current->cmd && !(current->head && current->head->type == INPUT))
 		{
 			dup2(STDERR_FILENO, STDOUT_FILENO);
 			printf("minishell: %s: command not found\n", current->args[0]);
