@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:12:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 06:34:18 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 07:22:28 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,12 @@ char	**expand_wildcard(char **buffer, char *str)
 	int		i;
 
 	if (!buffer)
-	{
-		buffer = malloc(sizeof(char *));
-		*buffer = NULL;
-	}
+		buffer = alloc_one();
 	tab = ft_tabdup(buffer);
 	i = 0;
 	tree = get_dir_files(str);
+	if (!tree)
+		tree = alloc_one();
 	while (tree[i])
 	{
 		if (searched_file(tree[i], str))

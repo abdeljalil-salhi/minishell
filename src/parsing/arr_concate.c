@@ -6,11 +6,20 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 12:16:17 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/14 15:00:45 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 07:23:06 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**alloc_one(void)
+{
+	char	**buffer;
+
+	buffer = malloc(sizeof(char *));
+	*buffer = NULL;
+	return (buffer);
+}
 
 char	**arr_concate(char **tab, char *str)
 {
@@ -18,10 +27,7 @@ char	**arr_concate(char **tab, char *str)
 	int		i;
 
 	if (!tab)
-	{
-		tab = malloc(sizeof(char *));
-		tab[0] = NULL;
-	}
+		tab = alloc_one();
 	arr = malloc(sizeof(char *) * (ft_tabsize(tab) + 2));
 	if (!arr)
 		return (NULL);

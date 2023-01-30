@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 06:36:33 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 07:21:15 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ int		empty(char *input);
 void	space_skiper(char *str, int *i);
 char	**arr_concate(char **tab, char *str);
 char	*str_concate(char *s, char c);
+char	**alloc_one(void);
 int		not_metachar(char c);
 void	buffer_reset(char **buffer);
 void	parser(char **lx);

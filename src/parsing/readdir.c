@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 06:33:55 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 06:46:23 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/30 07:24:40 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ DIR	*open_dir(char *str)
 	dr = opendir(path);
 	if (!dr)
 	{
-		printf("Could not open current directory\n");
-		exit(1);
+		free(path);
+		return (NULL);
 	}
 	free(path);
 	return (dr);
@@ -40,6 +40,8 @@ char	**get_dir_files(char *str)
 	char			**buffer;
 
 	dr = open_dir(str);
+	if (!dr)
+		return (NULL);
 	i = 0;
 	buffer = NULL;
 	while (1)
