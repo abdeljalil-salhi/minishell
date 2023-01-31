@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 08:48:57 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 16:14:27 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/31 07:13:06 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*get_cwd_env(void)
+{
+	char	*cwd;
+	int		i;
+
+	i = 0;
+	while (g_data.env[i])
+	{
+		if (!ft_strncmp(g_data.env[i], "PWD=", 4))
+			cwd = ft_strdup(g_data.env[i] + 4);
+		i++;
+	}
+	return (cwd);
+}
 
 char	*prompt(void)
 {
@@ -20,6 +35,10 @@ char	*prompt(void)
 	char	*color;
 
 	path = getcwd(NULL, 0);
+	if (!path)
+	{
+		path = get_cwd_env();
+	}
 	user = ft_strdup("$USER");
 	user = expand(user);
 	if (g_data.exit_status == 0)
