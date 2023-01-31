@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/01/30 21:57:40 by absalhi          ###   ########.fr        #
+#    Updated: 2023/01/31 01:37:03 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ install_readline:
 	fi
 
 $(NAME) : $(OBJS)
+	@stty -echoctl
 	@cc $(CFLAGS) $(OBJS) $(READLINE) -o $(NAME)
 
 debug : CFLAGS += -D DEBUG

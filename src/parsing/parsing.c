@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:50:45 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 22:00:21 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/31 03:49:41 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	empty(char *input)
 	if (!input)
 	{
 		printf("exit\n");
-		exit(EXIT_SUCCESS);
+		exit(g_data.exit_status);
 	}
 	while (input[++i])
 		if (input[i] != SPACE && input[i] != TAB)
@@ -53,7 +53,6 @@ void	sig_handler(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
-		g_data.here_doc = 0;
 	}
 }
 

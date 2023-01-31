@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 18:46:12 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/31 04:47:39 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <readline/history.h>
 # include <errno.h>
 # include <dirent.h>
+# include <sys/types.h>
+# include <signal.h>
 
 # define RESET " \e[00m"
 # define GREEN "\e[01;32m"
@@ -100,6 +102,7 @@ typedef struct s_proc
 	char			*cmd;
 	char			**args;
 	int				separator;
+	int				no_such_file;
 	int				level;
 	struct s_redir	*head;
 	struct s_proc	*next;
@@ -116,7 +119,6 @@ typedef struct s_data
 {
 	char			**env;
 	int				errors;
-	int				here_doc;
 	int				exit_status;
 	t_builtins		builtins[7];
 	struct s_proc	*head;
@@ -198,11 +200,13 @@ void	re_unset(char **args);
 /* ------------- execution ------------- */
 void	init_session(int argc, char **argv, char **env);
 void	supervisor(void);
-int		executor(t_proc *proc, int level, int _pipe[2], int prev_pipe[2]);
+int		executor(t_proc *proc, int _pipe[2], int prev_pipe[2]);
 int		exit_status(int status);
 int		is_builtin(char *cmd);
 int		exec_builtin(char *cmd, char **args);
+void	look_for_heredocs(void);
 void	exec_heredoc(t_redir *current);
+void	close_heredocs(void);
 
 /* ------------- debugging ------------- */
 void	printf_struct(void);

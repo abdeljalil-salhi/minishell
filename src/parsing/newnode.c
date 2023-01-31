@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   newnode.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:41:41 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/18 19:25:28 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/01/31 03:16:12 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_proc	*pc_new_node(char **args, int sep, int lvl)
 	new->cmd = NULL;
 	new->args = args;
 	new->separator = sep;
+	new->no_such_file = 0;
 	new->level = lvl;
 	new->head = NULL;
 	new->previous = NULL;

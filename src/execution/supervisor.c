@@ -6,21 +6,22 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/30 23:16:46 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/31 04:58:38 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	executor(t_proc *proc, int level, int _pipe[2], int prev_pipe[2])
+int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 {
 	pid_t	pid;
 	int		status;
 	t_redir	*current;
-	int		pipe_stdout = dup(1);
-	int		pipe_stdin = dup(0);
+	int		pipe_stdout;
+	int		pipe_stdin;
 
-	(void) level;
+	pipe_stdin = dup(0);
+	pipe_stdout = dup(1);
 	if (!proc->cmd)
 	{
 		close(_pipe[1]);
@@ -31,6 +32,7 @@ int	executor(t_proc *proc, int level, int _pipe[2], int prev_pipe[2])
 		return (0);
 	if (is_builtin(proc->cmd))
 	{
+		
 		if (proc->previous && proc->previous->separator == PIPE_TOKEN)
 		{
 			dup2(prev_pipe[0], 0);
@@ -87,6 +89,8 @@ int	executor(t_proc *proc, int level, int _pipe[2], int prev_pipe[2])
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (proc->previous && proc->previous->separator == PIPE_TOKEN)
 		{
 			dup2(prev_pipe[0], 0);
@@ -141,10 +145,16 @@ int	executor(t_proc *proc, int level, int _pipe[2], int prev_pipe[2])
 	{
 		close(_pipe[1]);
 		close(prev_pipe[0]);
+		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
+		signal(SIGINT, sig_handler);
 	}
 	else
-		printf("   ~ fork failed\n");
+	{
+		dup2(STDERR_FILENO, STDOUT_FILENO);
+		printf("minishell: fork: %s\n", strerror(errno));
+		dup2(STDOUT_FILENO, STDERR_FILENO);
+	}
 	return (exit_status(status));
 }
 
@@ -160,16 +170,22 @@ void	inspector(void)
 	current = g_data.head;
 	while (current)
 	{
-		pipe(i % 2 ? prev_pipe : _pipe);
-		g_data.exit_status = executor(current, current->level,
-				i % 2 ? prev_pipe : _pipe, i % 2 ? _pipe : prev_pipe);
+		if (i % 2)
+		{
+			pipe(prev_pipe);
+			g_data.exit_status = executor(current, prev_pipe, _pipe);
+		}
+		else
+		{
+			pipe(_pipe);
+			g_data.exit_status = executor(current, _pipe, prev_pipe);
+		}
 		if (g_data.exit_status && current->separator == AND_TOKEN)
 		{
 			level = current->level;
 			while (current && (current->separator == AND_TOKEN
 				|| current->separator == PIPE_TOKEN) && current->level >= level)
 				current = current->next;
-			i = -1;
 		}
 		else if (g_data.exit_status == 0 && current->separator == OR_TOKEN)
 		{
@@ -182,7 +198,6 @@ void	inspector(void)
 					level = current->level;
 				current = current->next;
 			}
-			i = -1;
 		}
 		i++;
 		if (current->separator != PIPE_TOKEN)
@@ -208,8 +223,10 @@ void	supervisor(void)
 			{
 				if (redir->type == HEREDOC)
 					exec_heredoc(redir);
-				else if (redir->type == INPUT && !current->cmd)
+				else if (redir->type == INPUT && (!current->cmd || !(*current->cmd))
+					&& !current->no_such_file)
 				{
+					current->no_such_file = 1;
 					dup2(STDERR_FILENO, STDOUT_FILENO);
 					printf("minishell: %s: No such file or directory\n", redir->file);
 					dup2(STDOUT_FILENO, STDERR_FILENO);
@@ -222,7 +239,8 @@ void	supervisor(void)
 	current = g_data.head;
 	while (current)
 	{
-		if (!current->cmd && !(current->head && current->head->type == INPUT))
+		if (!current->cmd && !(current->head && current->head->type == INPUT)
+			&& !current->no_such_file)
 		{
 			dup2(STDERR_FILENO, STDOUT_FILENO);
 			printf("minishell: %s: command not found\n", current->args[0]);
@@ -231,21 +249,5 @@ void	supervisor(void)
 		current = current->next;
 	}
 	inspector();
-	
-	// refactor this later v
-	char	*line;
-	
-	current = g_data.head;
-	while (current)
-	{
-		redir = current->head;
-		while (redir)
-		{
-			if (redir->type == HEREDOC)
-				if (!(read(redir->fd, &line, 0) < 0 && errno == EBADF))
-					close(redir->fd);
-			redir = redir->next;
-		}
-		current = current->next;
-	}
+	close_heredocs();
 }
