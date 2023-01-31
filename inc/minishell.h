@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/31 04:47:39 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/31 07:02:54 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include <signal.h>
+# include <string.h>
 
 # define RESET " \e[00m"
 # define GREEN "\e[01;32m"
@@ -177,6 +178,7 @@ char	*del_quote(char *str);
 void	wildcard(t_proc *proc);
 char	**get_dir_files(char *str);
 char	*prompt(void);
+int	not_special(char c);
 
 /* ------------- builtins ------------- */
 void	init_builtins(void);

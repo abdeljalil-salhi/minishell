@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   absolute_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 15:17:16 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 23:42:41 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/01/31 06:47:48 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*absolute_path(char *cmd)
 
 	if (!cmd)
 		return (NULL);
-	if (!access(cmd, F_OK) || !check_builtins(cmd))
+	if (!check_builtins(cmd))
 	{
 		path = ft_strdup(cmd);
 		return (path);
@@ -79,6 +79,11 @@ char	*absolute_path(char *cmd)
 	path = NULL;
 	if (check_path(tree, &path, cmd))
 		return (path);
+	if (!access(cmd, F_OK) || !check_builtins(cmd))
+	{
+		path = ft_strdup(cmd);
+		return (path);
+	}
 	ft_freearr(tree);
 	return (NULL);
 }
