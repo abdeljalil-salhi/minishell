@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/02/01 12:15:42 by absalhi          ###   ########.fr        #
+#    Updated: 2023/02/01 21:06:38 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBFT = libft/ft_strlen.c libft/ft_strdup.c libft/ft_freearr.c libft/ft_tabsize.
 	libft/ft_strcmp.c libft/ft_subarr.c libft/ft_strcjoin.c libft/ft_split.c \
 	libft/ft_strstr.c libft/ft_tabdup.c libft/ft_substr.c libft/ft_itoa.c\
 	libft/ft_strchr.c libft/ft_strjoin.c libft/ft_atoi.c libft/ft_bzero.c\
-	libft/ft_strrchr.c \
+	libft/ft_strrchr.c libft/ft_dprintf.c\
 
 PARSE = src/parsing/parsing.c src/parsing/syntax_error.c src/parsing/lexer.c\
 	src/parsing/concate.c src/parsing/parser.c src/parsing/lst_addback.c\
@@ -32,7 +32,7 @@ _BUILTINS = builtins_utils.c re_cd.c re_echo.c re_env.c re_exit.c re_export.c\
 BUILTINS = $(addprefix builtins/, $(_BUILTINS))
 
 _EXEC = supervisor.c exec_command.c exec_builtin.c exec_heredoc.c init_session.c\
-	ft_dprintf.c
+	supervisor_utils.c
 EXEC = $(addprefix src/execution/, $(_EXEC))
 
 _DEBUG = print_struct.c
@@ -51,23 +51,23 @@ all : header $(NAME)
 header :
 	@echo "Compiling $(NAME)..."
 
-install_readline:
-	@which -s brew
-	@if [[ $$? != 0 ]] ; then \
-		echo "Installing Homebrew..."; \
-		cd ~/goinfre; \
-		mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew; \
-		eval "$$(homebrew/bin/brew shellenv)"; \
-		brew update --force --quiet; \
-		chmod -R go-w "$$(brew --prefix)/share/zsh"; \
-		echo "Installing readline..."; \
-		brew install -q readline; \
-	else \
-		echo "Updating Homebrew..."; \
-		brew update; \
-		echo "Installing readline..."; \
-		brew install -q readline; \
+get_brew:
+	@echo "Installing Homebrew..."
+	@cd ~/goinfre/ && \
+	if [ -d homebrew ]; then \
+		echo "Homebrew already installed"; \
+		exit 0; \
 	fi
+	@cd ~/goinfre/ && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+	@cd ~/goinfre/ && eval "$$(homebrew/bin/brew shellenv)"
+	@brew update --force --quiet
+	@chmod -R go-w "$$(brew --prefix)/share/zsh"
+
+get_readline:
+	@echo "Installing readline..."
+	@brew install -q readline
+
+install : get_brew get_readline
 
 $(NAME) : $(OBJS)
 	@stty -echoctl
@@ -83,3 +83,5 @@ fclean : clean
 	@rm -fr $(NAME)
 
 re : fclean all
+
+.PHONY : all clean fclean re debug header get_brew get_readline install

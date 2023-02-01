@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/01 10:52:02 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/01 23:09:54 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <string.h>
 # include <stdarg.h>
+# include "errors.h"
 
 # define RESET " \e[00m"
 # define GREEN "\e[01;32m"
@@ -73,21 +74,22 @@ enum e_separator
 /*
 	<-- man parsing -->
 	- redirection struct :
-	 + type : type of next separator (check separators enum ^)
-	 + fd : file descriptor in success, -1 if permission denied -2 if no such file,
-	 		-3 if here_doc
-	 + file : file path, delimiter in here_doc
+	 + type :	type of next separator (check separators enum ^)
+	 + fd   :	file descriptor in success, -1 if permission denied
+	 			-2 if no such file, -3 if here_doc
+	 + file :	file path, delimiter in here_doc
 
 	- process struct :
-	 + cmd : command absolute path, NULL if command not found, empty str if no command (< filein > fileout)
-	 + args : argument array, NULL if no args
+	 + cmd :	command absolute path, NULL if command not found,
+	 			empty str if no command (< filein > fileout)
+	 + args :	argument array, NULL if no args
 	 + separator : check types in enum ^
-	 + head : header of redirections list, NULL if no redirections
+	 + head :	header of redirections list, NULL if no redirections
 
 	- main struct (data)
-	 + env : environment array, main shell env
-	 + errors : used in parsing if syntax error detected
-	 + head : the header of process list
+	 + env  :	environment array, main shell env
+	 + errors :	used in parsing if syntax error detected
+	 + head :	the header of process list
 */
 
 typedef struct s_redir
@@ -181,7 +183,7 @@ char	*del_quote(char *str);
 void	wildcard(t_proc *proc);
 char	**get_dir_files(char *str);
 char	*prompt(void);
-int	not_special(char c);
+int		not_special(char c);
 
 /* ------------- builtins ------------- */
 void	init_builtins(void);
@@ -206,11 +208,21 @@ void	re_unset(char **args);
 void	init_session(int argc, char **argv, char **env);
 void	supervisor(void);
 int		executor(t_proc *proc, int _pipe[2], int prev_pipe[2]);
+void	init_inspector_and_exec(t_proc *_, int __[2], int ___[2], int i);
+int		priority_condition(t_proc *proc, int level, int token);
+void	apply_priorities(t_proc **proc, int *level);
+void	dup_and_close(int fd, int new_fd);
+void	dup_or_error(t_redir *current);
+int		heredoc_and_errors(t_redir **redir, int *status, pid_t *pid);
+void	look_for_cmd_not_found(void);
 int		exit_status(int status);
 int		is_builtin(char *cmd);
 int		exec_builtin(char *cmd, char **args);
-void	look_for_heredocs(void);
+void	exec_cmd(t_proc *proc, int _pipe[2], int prev_pipe[2]);
+void	wait_for_child(pid_t pid, int _pipe[2], int prev_pipe[2], int *status);
+int		exec_builtin_cmd(t_proc *proc, int _pipe[2], int prev_pipe[2]);
 void	exec_heredoc(t_redir *current);
+int		handle_heredoc(pid_t pid, int *status);
 void	close_heredocs(void);
 
 /* ------------- debugging ------------- */

@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:51:43 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/27 00:49:17 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/01 23:11:15 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,8 @@ void	printf_redir(t_redir *redir, int tab)
 	}
 }
 
-void	printf_struct(void)
+void	printf_first_element(void)
 {
-	int		i;
-	t_proc	*current;
-
 	printf("t_data g_data = {\n\n");
 	printf("   .errors = %d\n", g_data.errors);
 	printf("   .exit_status = %d\n\n", g_data.exit_status);
@@ -55,6 +52,14 @@ void	printf_struct(void)
 	printf_redir(g_data.head->head, 0);
 	printf("     .head->level = %d\n", g_data.head->level);
 	printf("     .head->next = %p\n\n", g_data.head->next);
+}
+
+void	printf_struct(void)
+{
+	int		i;
+	t_proc	*current;
+
+	printf_first_element();
 	i = 0;
 	current = g_data.head->next;
 	while (current)

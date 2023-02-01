@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 07:48:27 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/01 12:31:42 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/01 22:13:21 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,8 @@
 
 void	sig_handler_heredoc(int sig)
 {
-	if (sig == SIGINT && g_data.here_doc)
-	{
-		g_data.here_doc = 0;
+	if (sig == SIGINT)
 		exit(EXIT_FAILURE);
-	}
-}
-
-void	ft_putendl_fd(char *s, int fd)
-{
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
 }
 
 void	exec_heredoc(t_redir *current)
@@ -34,8 +25,7 @@ void	exec_heredoc(t_redir *current)
 	current->fd = open(HERE_DOC, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (current->fd == -1)
 		return ;
-	g_data.here_doc = 1;
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sig_handler_heredoc);
 	while (1)
 	{
@@ -47,39 +37,11 @@ void	exec_heredoc(t_redir *current)
 			free(line);
 			break ;
 		}
-		ft_putendl_fd(line, current->fd);
+		ft_dprintf(current->fd, "%s\n", line);
 		free(line);
 	}
-	g_data.here_doc = 0;
 	close(current->fd);
-}
-
-void	look_for_heredocs(void)
-{
-	t_proc	*current;
-	t_redir	*redir;
-
-	current = g_data.head;
-	while (current)
-	{
-		if (current->head)
-		{
-			redir = current->head;
-			while (redir)
-			{
-				if (redir->type == HEREDOC)
-					exec_heredoc(redir);
-				else if (redir->type == INPUT && (!current->cmd || !(*current->cmd))
-					&& !current->no_such_file)
-				{
-					current->no_such_file = 1;
-					ft_dprintf(2, "minishell: %s: No such file or directory\n", redir->file);
-				}
-				redir = redir->next;
-			}
-		}
-		current = current->next;
-	}
+	exit(EXIT_SUCCESS);
 }
 
 void	close_heredocs(void)
@@ -101,4 +63,25 @@ void	close_heredocs(void)
 		}
 		current = current->next;
 	}
+}
+
+int	handle_heredoc(pid_t pid, int *status)
+{
+	g_data.here_doc = 1;
+	if (waitpid(pid, status, 0) == -1)
+	{
+		ft_dprintf(STDERR_FILENO, FAIL_WAITPID, strerror(errno));
+		return (EXIT_FAILURE);
+	}
+	g_data.here_doc = 0;
+	if (WIFEXITED(*status))
+	{
+		g_data.exit_status = EXIT_SUCCESS;
+		if (WEXITSTATUS(*status))
+		{
+			g_data.exit_status = EXIT_FAILURE;
+			return (EXIT_FAILURE);
+		}
+	}
+	return (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 08:48:57 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/31 07:13:06 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/01 21:27:11 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,39 @@ char	*get_cwd_env(void)
 	return (cwd);
 }
 
-char	*prompt(void)
+typedef struct s_prompt
 {
 	char	*path;
 	char	*folder;
 	char	*user;
 	char	*color;
+}	t_prompt;
 
-	path = getcwd(NULL, 0);
-	if (!path)
-	{
-		path = get_cwd_env();
-	}
-	user = ft_strdup("$USER");
-	user = expand(user);
+char	*prompt(void)
+{
+	t_prompt	s;
+
+	s.path = getcwd(NULL, 0);
+	if (!s.path)
+		s.path = get_cwd_env();
+	s.user = ft_strdup("$USER");
+	s.user = expand(s.user);
 	if (g_data.exit_status == 0)
-		color = GREEN_ARROW;
+		s.color = GREEN_ARROW;
 	else
-		color = RED_ARROW;
-	if (ft_strlen(path) != ft_strlen(ft_strrchr(path, '/')))
+		s.color = RED_ARROW;
+	if (ft_strlen(s.path) != ft_strlen(ft_strrchr(s.path, '/')))
 	{
-		if (!ft_strcmp(user, ft_strrchr(path, '/') + 1))
-			folder = ft_strjoin(color, "~");
+		if (!ft_strcmp(s.user, ft_strrchr(s.path, '/') + 1))
+			s.folder = ft_strjoin(s.color, "~");
 		else
-			folder = ft_strjoin(color, ft_strrchr(path, '/') + 1);
+			s.folder = ft_strjoin(s.color, ft_strrchr(s.path, '/') + 1);
 	}
 	else
-		folder = ft_strjoin(color, ft_strrchr(path, '/'));
-	free(path);
-	path = ft_strjoin(folder, RESET);
-	free(folder);
-	free(user);
-	return (path);
+		s.folder = ft_strjoin(s.color, ft_strrchr(s.path, '/'));
+	free(s.path);
+	s.path = ft_strjoin(s.folder, RESET);
+	free(s.folder);
+	free(s.user);
+	return (s.path);
 }
