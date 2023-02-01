@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   supervisor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/01 12:31:49 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/01 13:04:19 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,7 @@ void	supervisor(void)
 					}
 					else if (pid > 0)
 					{
-						// signal(SIGINT, SIG_IGN);
+						signal(SIGINT, SIG_IGN);
 						waitpid(pid, &status, 0);
 						// signal(SIGINT, sig_handler);
 						if (WIFEXITED(status))
