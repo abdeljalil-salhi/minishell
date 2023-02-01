@@ -6,11 +6,20 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 07:48:27 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/31 04:52:52 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/01 12:31:42 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	sig_handler_heredoc(int sig)
+{
+	if (sig == SIGINT && g_data.here_doc)
+	{
+		g_data.here_doc = 0;
+		exit(EXIT_FAILURE);
+	}
+}
 
 void	ft_putendl_fd(char *s, int fd)
 {
@@ -25,6 +34,9 @@ void	exec_heredoc(t_redir *current)
 	current->fd = open(HERE_DOC, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (current->fd == -1)
 		return ;
+	g_data.here_doc = 1;
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, sig_handler_heredoc);
 	while (1)
 	{
 		line = readline("> ");
@@ -38,6 +50,7 @@ void	exec_heredoc(t_redir *current)
 		ft_putendl_fd(line, current->fd);
 		free(line);
 	}
+	g_data.here_doc = 0;
 	close(current->fd);
 }
 
@@ -60,9 +73,7 @@ void	look_for_heredocs(void)
 					&& !current->no_such_file)
 				{
 					current->no_such_file = 1;
-					dup2(STDERR_FILENO, STDOUT_FILENO);
-					printf("minishell: %s: No such file or directory\n", redir->file);
-					dup2(STDOUT_FILENO, STDERR_FILENO);
+					ft_dprintf(2, "minishell: %s: No such file or directory\n", redir->file);
 				}
 				redir = redir->next;
 			}

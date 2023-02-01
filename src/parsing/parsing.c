@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:50:45 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/31 03:49:41 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/01 10:51:49 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	empty(char *input)
 
 void	sig_handler(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT && !g_data.here_doc)
 	{
 		printf("\n");
 		rl_replace_line("", 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   supervisor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/01/31 06:44:27 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/01 12:31:49 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,12 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 		{
 			if (current->fd == -1)
 			{
-				dup2(STDERR_FILENO, STDOUT_FILENO);
-				printf("minishell: %s: Permission denied\n", current->file);
-				dup2(STDOUT_FILENO, STDERR_FILENO);
+				ft_dprintf(2, "minishell: %s: Permission denied\n", current->file);
 				return (EXIT_FAILURE);
 			}
 			if (current->fd == -2)
 			{
-				dup2(STDERR_FILENO, STDOUT_FILENO);
-				printf("minishell: %s: No such file or directory\n", current->file);
-				dup2(STDOUT_FILENO, STDERR_FILENO);
+				ft_dprintf(2, "minishell: %s: No such file or directory\n", current->file);
 				return (EXIT_FAILURE);
 			}
 			if (current->type == INPUT)
@@ -106,14 +102,12 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 		{
 			if (current->fd == -1)
 			{
-				dup2(STDERR_FILENO, STDOUT_FILENO);
-				printf("minishell: %s: Permission denied\n", current->file);
+				ft_dprintf(2, "minishell: %s: Permission denied\n", current->file);
 				exit(EXIT_FAILURE);
 			}
 			if (current->fd == -2)
 			{
-				dup2(STDERR_FILENO, STDOUT_FILENO);
-				printf("minishell: %s: No such file or directory\n", current->file);
+				ft_dprintf(2, "minishell: %s: No such file or directory\n", current->file);
 				exit(EXIT_FAILURE);
 			}
 			if (current->type == INPUT)
@@ -136,8 +130,7 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 		}
 		if (execve(proc->cmd, proc->args, g_data.env) == -1)
 		{
-			dup2(STDERR_FILENO, STDOUT_FILENO);
-			printf("minishell: %s: Permission denied\n", proc->cmd);
+			ft_dprintf(2, "minishell: %s: Permission denied\n", proc->cmd);
 			exit(126);
 		}
 	}
@@ -150,11 +143,7 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 		signal(SIGINT, sig_handler);
 	}
 	else
-	{
-		dup2(STDERR_FILENO, STDOUT_FILENO);
-		printf("minishell: fork: %s\n", strerror(errno));
-		dup2(STDOUT_FILENO, STDERR_FILENO);
-	}
+		ft_dprintf(2, "minishell: fork: %s\n", strerror(errno));
 	return (exit_status(status));
 }
 
@@ -212,6 +201,8 @@ void	supervisor(void)
 {
 	t_proc	*current;
 	t_redir	*redir;
+	pid_t	pid;
+	int		status;
 
 	current = g_data.head;
 	while (current)
@@ -222,14 +213,36 @@ void	supervisor(void)
 			while (redir)
 			{
 				if (redir->type == HEREDOC)
-					exec_heredoc(redir);
+				{
+					pid = fork();
+					if (pid == 0)
+					{
+						exec_heredoc(redir);
+						exit(0);
+					}
+					else if (pid > 0)
+					{
+						// signal(SIGINT, SIG_IGN);
+						waitpid(pid, &status, 0);
+						// signal(SIGINT, sig_handler);
+						if (WIFEXITED(status))
+						{
+							g_data.exit_status = 0;
+							if (WEXITSTATUS(status))
+							{
+								g_data.exit_status = 1;
+								return ;
+							}
+						}
+					}
+					else
+						ft_dprintf(2, "minishell: fork: %s\n", strerror(errno));
+				}
 				else if (redir->type == INPUT && (!current->cmd || !(*current->cmd))
 					&& !current->no_such_file)
 				{
 					current->no_such_file = 1;
-					dup2(STDERR_FILENO, STDOUT_FILENO);
-					printf("minishell: %s: No such file or directory\n", redir->file);
-					dup2(STDOUT_FILENO, STDERR_FILENO);
+					ft_dprintf(2, "minishell: %s: No such file or directory\n", redir->file);
 				}
 				redir = redir->next;
 			}
@@ -241,11 +254,7 @@ void	supervisor(void)
 	{
 		if (!current->cmd && !(current->head && current->head->type == INPUT)
 			&& !current->no_such_file)
-		{
-			dup2(STDERR_FILENO, STDOUT_FILENO);
-			printf("minishell: %s: command not found\n", current->args[0]);
-			dup2(STDOUT_FILENO, STDERR_FILENO);
-		}
+			ft_dprintf(2, "minishell: %s: command not found\n", current->args[0]);
 		current = current->next;
 	}
 	inspector();

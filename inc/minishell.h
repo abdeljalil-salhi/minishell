@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/31 07:02:54 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/01 10:52:02 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <signal.h>
 # include <string.h>
+# include <stdarg.h>
 
 # define RESET " \e[00m"
 # define GREEN "\e[01;32m"
@@ -121,6 +122,7 @@ typedef struct s_data
 	char			**env;
 	int				errors;
 	int				exit_status;
+	int				here_doc;
 	t_builtins		builtins[7];
 	struct s_proc	*head;
 }	t_data;
@@ -148,6 +150,7 @@ char	*ft_itoa(int n);
 char	*ft_strchr(char *str, int c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strrchr(char *str, int c);
+int		ft_dprintf(int fd, const char *s, ...);
 
 /* ------------- parsing ------------- */
 void	parsing(char *input);
