@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:28:37 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/01 22:29:24 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 12:31:29 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 # define FAIL_PIPE "minishell: pipe: %s\n"
 
 # define CUSTOM "minishell: %s: %s\n"
+# define UNEXPECTED_TOKEN "minishell: syntax error near unexpected token `%s'\n"
 
 #endif

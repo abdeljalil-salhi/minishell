@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:28:50 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/21 07:36:35 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/02 12:34:16 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,13 @@ int	open_parenth_check(char **lx, int *x, int i)
 	if (i && ft_strcmp(lx[i - 1], "&&") && ft_strcmp(lx[i - 1], "||")
 		&& ft_strcmp(lx[i - 1], "|") && ft_strcmp(lx[i - 1], "("))
 	{
-		printf("minishell: syntax error near unexpected token `%s'\n",
-			lx[i]);
+		ft_dprintf(2, UNEXPECTED_TOKEN, lx[i]);
 		return (1);
 	}
 	if (lx[i + 1] && (!ft_strcmp(lx[i + 1], ")") || !ft_strcmp(lx[i + 1], "&&")
 			|| !ft_strcmp(lx[i + 1], "||") || !ft_strcmp(lx[i + 1], "||")))
 	{
-		printf("minishell: syntax error near unexpected token `%s'\n",
-			lx[i + 1]);
+		ft_dprintf(2, UNEXPECTED_TOKEN, lx[i + 1]);
 		return (1);
 	}
 	return (0);
@@ -39,8 +37,7 @@ int	close_parenth_check(char **lx, int *y, int i)
 		&& ft_strcmp(lx[i + 1], "||") && ft_strcmp(lx[i + 1], "|")
 		&& ft_strcmp(lx[i + 1], ")"))
 	{
-		printf("minishell: syntax error near unexpected token `%s'\n",
-			lx[i + 1]);
+		dprintf(2, UNEXPECTED_TOKEN, lx[i + 1]);
 		return (1);
 	}
 	return (0);
@@ -62,12 +59,12 @@ int	parentheses_check(char **lx, int i, int *x, int *y)
 	{
 		if (*x > *y)
 		{
-			printf("minishell: syntax error near unexpected tokeen `('\n");
+			ft_dprintf(2, UNEXPECTED_TOKEN, "(");
 			return (1);
 		}
 		else if (*x < *y)
 		{
-			printf("minishell: syntax error near unexpected tokeen `)'\n");
+			ft_dprintf(2, UNEXPECTED_TOKEN, ")");
 			return (1);
 		}
 	}

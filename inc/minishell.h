@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/01 23:09:54 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 12:41:33 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ void	wildcard(t_proc *proc);
 char	**get_dir_files(char *str);
 char	*prompt(void);
 int		not_special(char c);
+int		is_arrow(char *str);
 
 /* ------------- builtins ------------- */
 void	init_builtins(void);
