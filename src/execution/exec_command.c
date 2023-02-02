@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:38:52 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/02 15:12:13 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 16:45:08 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,12 @@ void	exec_cmd(t_proc *proc, int _pipe[2], int prev_pipe[2])
 		dup_or_error(current);
 		current = current->next;
 	}
-	if (execve(proc->cmd, proc->args, g_data.env) == -1)
+	if (execve(proc->cmd, proc->args, g_data.env) == -1 && !proc->no_such_file)
 	{
 		ft_dprintf(STDERR_FILENO, CUSTOM, proc->cmd, strerror(errno));
 		exit(126);
 	}
+	exit(126);
 }
 
 void	wait_for_child(pid_t pid, int _pipe[2], int prev_pipe[2], int *status)
