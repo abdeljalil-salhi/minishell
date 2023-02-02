@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 00:19:59 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/01 20:53:56 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 14:19:49 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_exec_builtin
 
 int	dup_or_error_builtin(t_redir *current)
 {
+	init_redirections(&current);
 	if (current->fd == -1)
 		return (ft_dprintf(2, ERR_PERMISSION, current->file),
 			EXIT_FAILURE);

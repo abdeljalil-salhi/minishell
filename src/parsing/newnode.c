@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:41:41 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/31 03:16:12 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 14:49:48 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_redir	*rd_new_node(char *file, int type)
 	if (!new)
 		return (NULL);
 	new->file = ft_strdup(file);
+	new->fd = -1;
 	new->type = type;
 	new->next = NULL;
 	new->previous = NULL;

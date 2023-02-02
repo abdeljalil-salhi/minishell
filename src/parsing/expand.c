@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:24:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/31 07:05:40 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:45:31 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	set_quotes(char *str, int i, int *key)
 	}
 }
 
-char	*expand(char *str)
+char	*expand(char *str, int quotes)
 {
 	int		key;
 	char	*buffer;
@@ -103,7 +103,8 @@ char	*expand(char *str)
 	buffer = NULL;
 	while (str[i])
 	{
-		set_quotes(str, i, &key);
+		if (quotes)
+			set_quotes(str, i, &key);
 		if (str[i] == '$' && str[i + 1] && key != 3)
 			get_env_value(&buffer, str, &i);
 		else

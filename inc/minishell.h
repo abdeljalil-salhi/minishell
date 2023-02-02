@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/02 12:41:33 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/02 16:13:46 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	rd_addback(t_redir **head, t_redir *new);
 t_redir	*rd_new_node(char *file, int type);
 void	clear(void);
 char	*absolute_path(char *cmd);
-char	*expand(char *str);
+char	*expand(char *str, int quotes);
 void	sig_handler(int sig);
 int		parentheses_check(char **lx, int i, int *x, int *y);
 void	init_list(char **lx);
@@ -207,6 +207,7 @@ void	re_unset(char **args);
 
 /* ------------- execution ------------- */
 void	init_session(int argc, char **argv, char **env);
+void	init_redirections(t_redir **redir);
 void	supervisor(void);
 int		executor(t_proc *proc, int _pipe[2], int prev_pipe[2]);
 void	init_inspector_and_exec(t_proc *_, int __[2], int ___[2], int i);
@@ -219,6 +220,7 @@ void	look_for_cmd_not_found(void);
 int		exit_status(int status);
 int		is_builtin(char *cmd);
 int		exec_builtin(char *cmd, char **args);
+int		exec_empty_cmd(t_proc *proc);
 void	exec_cmd(t_proc *proc, int _pipe[2], int prev_pipe[2]);
 void	wait_for_child(pid_t pid, int _pipe[2], int prev_pipe[2], int *status);
 int		exec_builtin_cmd(t_proc *proc, int _pipe[2], int prev_pipe[2]);

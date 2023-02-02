@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 08:48:57 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/01 21:27:11 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:46:42 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*prompt(void)
 	if (!s.path)
 		s.path = get_cwd_env();
 	s.user = ft_strdup("$USER");
-	s.user = expand(s.user);
+	s.user = expand(s.user, 1);
 	if (g_data.exit_status == 0)
 		s.color = GREEN_ARROW;
 	else

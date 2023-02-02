@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 07:48:27 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/01 22:13:21 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 11:46:57 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	exec_heredoc(t_redir *current)
 			free(line);
 			break ;
 		}
+		line = expand(line, 0);
 		ft_dprintf(current->fd, "%s\n", line);
 		free(line);
 	}

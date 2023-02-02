@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:23:05 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 06:36:13 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:47:05 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	expand_files(t_proc *proc)
 	ptr = proc->head;
 	while (ptr)
 	{
-		ptr->file = expand(ptr->file);
+		ptr->file = expand(ptr->file, 1);
 		if (ft_strchr(ptr->file, '\'') || ft_strchr(ptr->file, '"'))
 			ptr->file = del_quote(ptr->file);
 		ptr = ptr->next;

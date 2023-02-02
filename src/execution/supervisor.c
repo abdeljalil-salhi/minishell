@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/01 23:09:41 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:08:34 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	executor(t_proc *proc, int _pipe[2], int prev_pipe[2])
 		return (127);
 	}
 	if (proc->cmd[0] == '\0')
-		return (0);
+		return (exec_empty_cmd(proc));
 	if (is_builtin(proc->cmd))
 		return (exec_builtin_cmd(proc, _pipe, prev_pipe));
 	status = 0;

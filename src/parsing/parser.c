@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 15:45:36 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 11:56:28 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:24:17 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,35 +24,6 @@ void	get_cmd_path(void)
 		else
 			tmp->cmd = absolute_path(tmp->args[0]);
 		tmp = tmp->next;
-	}
-}
-
-void	open_files(void)
-{
-	t_proc	*tmp1;
-	t_redir	*tmp2;
-
-	tmp1 = g_data.head;
-	while (tmp1)
-	{
-		tmp2 = tmp1->head;
-		while (tmp2)
-		{
-			if (tmp2->type == INPUT)
-				tmp2->fd = open(tmp2->file, O_RDONLY, 0644);
-			else if (tmp2->type == OUTPUT)
-				tmp2->fd = open(tmp2->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			else if (tmp2->type == APPEND)
-				tmp2->fd = open(tmp2->file, O_WRONLY
-						| O_CREAT | O_APPEND, 0644);
-			else if (tmp2->type == HEREDOC)
-				tmp2->fd = -3;
-			if (tmp2->fd == -1)
-				if (access(tmp2->file, F_OK) == -1)
-					tmp2->fd = -2;
-			tmp2 = tmp2->next;
-		}
-		tmp1 = tmp1->next;
 	}
 }
 
@@ -89,7 +60,7 @@ void	quote_expand(t_proc *proc)
 	i = 0;
 	while (proc->args && proc->args[i])
 	{
-		proc->args[i] = expand(proc->args[i]);
+		proc->args[i] = expand(proc->args[i], 1);
 		if (ft_strchr(proc->args[i], '\'') || ft_strchr(proc->args[i], '"'))
 			proc->args[i] = del_quote(proc->args[i]);
 		i++;
@@ -103,7 +74,6 @@ void	parser(char **lx)
 	init_list(lx);
 	init_rd();
 	get_cmd_path();
-	open_files();
 	tmp = g_data.head;
 	while (tmp)
 	{

@@ -6,17 +6,11 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:38:52 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/01 23:26:37 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 15:12:13 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	dup_and_close(int fd, int new_fd)
-{
-	dup2(fd, new_fd);
-	close(fd);
-}
 
 int	exit_status(int status)
 {
@@ -27,8 +21,27 @@ int	exit_status(int status)
 	return (status);
 }
 
+int	exec_empty_cmd(t_proc *proc)
+{
+	t_redir	*current;
+
+	current = proc->head;
+	while (current)
+	{
+		init_redirections(&current);
+		if (current->fd == -1)
+			return (ft_dprintf(2, ERR_PERMISSION, current->file),
+				EXIT_FAILURE);
+		if (current->fd == -2)
+			return (EXIT_FAILURE);
+		current = current->next;
+	}
+	return (EXIT_SUCCESS);
+}
+
 void	dup_or_error(t_redir *current)
 {
+	init_redirections(&current);
 	if (current->fd == -1)
 	{
 		ft_dprintf(STDERR_FILENO, ERR_PERMISSION, current->file);
@@ -68,7 +81,7 @@ void	exec_cmd(t_proc *proc, int _pipe[2], int prev_pipe[2])
 	}
 	if (execve(proc->cmd, proc->args, g_data.env) == -1)
 	{
-		ft_dprintf(STDERR_FILENO, ERR_PERMISSION, proc->cmd);
+		ft_dprintf(STDERR_FILENO, CUSTOM, proc->cmd, strerror(errno));
 		exit(126);
 	}
 }
