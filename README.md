@@ -39,8 +39,6 @@
  - [ ] semicolon
  - [ ] aliases
 
----
-
 ## to-fix
 - [X] fix leaks
 - [ ] piped builtins
