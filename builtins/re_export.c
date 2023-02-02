@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:56:26 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/28 00:14:08 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/02 10:22:46 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	export_var(char **args)
 	i = 1;
 	while (args[i])
 	{
-		if (!valid_ident(args[1]))
+		if (!valid_ident(args[i]))
 		{
 			j = check_var(args[i]);
 			if (j == -1)

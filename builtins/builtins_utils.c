@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 20:01:26 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 08:52:17 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:23:15 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	valid_ident(char *str)
 		}
 		i++;
 	}
-	if (!i || (str[0] >= '0' && str[0] <= '9'))
+	if (!i || (str[0] >= '0' && str[0] <= '9') || str[i] == SPACE)
 	{
 		printf("minishell: export: `%s': not a valid identifier\n", str);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:32 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/31 06:46:28 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/02 10:39:25 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ void	n_option(char **args)
 	int	i;
 
 	i = 1;
-	if (!args[2])
-		return ;
 	if (!only_n(args[i] + 1))
 	{
-		while (args[i][0] == '-' && !only_n(args[i] + 1))
+		while (args[i] && *args[i] == '-' && !only_n(args[i] + 1))
 			i++;
+		if (!args[i])
+			return ;
 		print_args(args + i, 0);
 	}
 	else
-		print_args(args + 1, 1);
+		print_args(args + i, 1);
 }
 
 void	re_echo(char **args)
