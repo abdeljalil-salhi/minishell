@@ -58,6 +58,7 @@ int	check_path(char **tree, char **path, char *cmd)
 		free(*path);
 		i++;
 	}
+	ft_freearr(tree);
 	return (0);
 }
 
@@ -79,11 +80,10 @@ char	*absolute_path(char *cmd)
 	path = NULL;
 	if (check_path(tree, &path, cmd))
 		return (path);
-	if (!access(cmd, F_OK) || !check_builtins(cmd))
+	if (!access(cmd, F_OK))
 	{
 		path = ft_strdup(cmd);
 		return (path);
 	}
-	ft_freearr(tree);
 	return (NULL);
 }
