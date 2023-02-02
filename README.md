@@ -24,14 +24,23 @@
  - [X] BULITINS (for execution part);
  - [X] wildcards
 
-# execution : 60%
+# execution : 90%
  - [X] execute commands
  - [X] execute builtins
  - [X] pipes
  - [X] redirections
  - [X] AND
  - [X] OR
- - [ ] semicolon
- - [ ] priorities
+ - [X] priorities
  - [X] history
+
+ # EXTRA : 30%
+ - [X] ZSH prompt
+ - [ ] semicolon
  - [ ] aliases
+
+---
+
+## to-fix
+- [X] fix leaks
+- [ ] piped builtins
