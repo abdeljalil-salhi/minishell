@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:32 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/02 10:39:25 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/03 07:44:39 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_args(char **args, int n)
 	{
 		printf("%s", args[i++]);
 		if (args[i])
-			printf(" ");
+			printf("%c", SPACE);
 	}
 	if (!i || n)
 		printf("\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 16:28:37 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/03 04:24:08 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 08:38:27 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define ERR_NO_SUCH_FILE_2 "minishell: %s: %s: No such file or directory\n"
 # define ERR_CMD_NOT_FOUND "minishell: %s: command not found\n"
 # define ERR_INVALID_IDENT "minishell: %s: `%s': not a valid identifier\n"
-# define ERR_UNSET_HOME "minishell: cd: HOME not set\n"
+# define ERR_UNSET "minishell: cd: %s not set\n"
 # define ERR_NUMERIC_ARG "minishell: exit: %s: numeric argument required\n"
 # define ERR_TOO_MANY_ARGS "minishell: exit: too many arguments\n"
 

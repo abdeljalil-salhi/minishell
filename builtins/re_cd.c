@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:54 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/03 04:10:56 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 07:50:53 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	re_cd(char **args)
 	cwd = getcwd(NULL, 0);
 	if (!args[1])
 		cd_home();
+	else if (!ft_strcmp(args[1], "-"))
+		cd_oldpwd();
 	else if (ft_strcmp(args[1], "."))
 	{
 		set_oldpwd();

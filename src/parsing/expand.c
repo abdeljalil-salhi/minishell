@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 09:24:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/02 16:51:23 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 09:25:36 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	non_env_values(char *str, char **ptr)
 {
 	char	*tmp;
 
+	if (!(*str))
+	{
+		*ptr = ft_strdup("");
+		return ;
+	}
 	if (*str == '?')
 	{
 		*ptr = ft_itoa(g_data.exit_status);

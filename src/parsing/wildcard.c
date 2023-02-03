@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:12:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 22:58:05 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 10:57:55 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int	searched_file(char *filename, char *str)
 	i = -1;
 	while (arr[++i])
 	{
-		if (!ft_strstr(filename, arr[i]))
+		if (ft_strstr(filename, arr[i]))
 		{
 			ft_freearr(arr);
-			return (0);
+			return (1);
 		}
 	}
 	ft_freearr(arr);
-	return (1);
+	return (0);
 }
 
 char	**expand_wildcard(char **buffer, char *str)

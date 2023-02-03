@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 20:01:26 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/03 04:21:35 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 08:38:23 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	cd_home(void)
 
 	if (!check_home())
 	{
-		ft_dprintf(STDERR_FILENO, ERR_UNSET_HOME);
+		ft_dprintf(STDERR_FILENO, ERR_UNSET, "HOME");
 		g_data.exit_status = EXIT_FAILURE;
 	}
 	else
