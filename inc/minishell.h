@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/03 03:06:25 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 03:54:29 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_proc
 	char			*cmd;
 	char			**args;
 	int				separator;
-	int				no_such_file;
+	int				error;
 	int				level;
 	struct s_redir	*head;
 	struct s_proc	*next;
@@ -218,6 +218,8 @@ void	dup_or_error(t_redir *current);
 int		heredoc_and_errors(t_redir **redir, int *status, pid_t *pid);
 void	look_for_cmd_not_found(void);
 int		exit_status(int status);
+void	check_if_dots(t_proc **proc);
+void	check_if_directory(t_proc **proc);
 int		is_builtin(char *cmd);
 int		exec_builtin(char *cmd, char **args);
 int		exec_builtin_pipe(t_proc *proc, int _pipe[2], int prev_pipe[2]);

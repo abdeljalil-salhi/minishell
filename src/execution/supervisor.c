@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 21:38:16 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/02 16:42:24 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 03:54:54 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ void	inspector(void)
 	s.current = g_data.head;
 	while (s.current)
 	{
-		if (opendir(s.current->cmd) && !s.current->no_such_file)
-		{
-			ft_dprintf(2, CUSTOM, s.current->args[0], "is a directory");
-			s.current->no_such_file = 1;
-		}
+		check_if_dots(&s.current);
+		check_if_directory(&s.current);
 		init_inspector_and_exec(s.current, s._pipe, s.prev_pipe, s.i);
 		apply_priorities(&s.current, &s.level);
 		s.i++;
@@ -99,9 +96,9 @@ void	supervisor(void)
 					&& heredoc_and_errors(&s.rd, &s.status, &s.pid))
 					return ;
 				else if (s.rd->type == INPUT && (!s.cr->cmd || !(*s.cr->cmd))
-					&& !s.cr->no_such_file && access(s.rd->file, F_OK) == -1)
+					&& !s.cr->error && access(s.rd->file, F_OK) == -1)
 				{
-					s.cr->no_such_file = 1;
+					s.cr->error = 1;
 					ft_dprintf(2, CUSTOM, s.rd->file, strerror(errno));
 				}
 				s.rd = s.rd->next;

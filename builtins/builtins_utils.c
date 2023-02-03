@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 20:01:26 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/02 10:23:15 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/03 04:21:35 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ int	valid_ident(char *str)
 				|| (str[i] >= '0' && str[i] <= '9')
 				|| str[i] == '_'))
 		{
-			printf("minishell: export: `%s': not a valid identifier\n", str);
+			ft_dprintf(STDERR_FILENO, ERR_INVALID_IDENT, "export", str);
 			return (1);
 		}
 		i++;
 	}
 	if (!i || (str[0] >= '0' && str[0] <= '9') || str[i] == SPACE)
 	{
-		printf("minishell: export: `%s': not a valid identifier\n", str);
+		ft_dprintf(STDERR_FILENO, ERR_INVALID_IDENT, "export", str);
 		return (1);
 	}
 	return (0);
@@ -107,7 +107,7 @@ void	cd_home(void)
 
 	if (!check_home())
 	{
-		printf("minishell: cd: HOME not set\n");
+		ft_dprintf(STDERR_FILENO, ERR_UNSET_HOME);
 		g_data.exit_status = EXIT_FAILURE;
 	}
 	else
@@ -117,7 +117,7 @@ void	cd_home(void)
 		i = chdir(path);
 		if (i)
 		{
-			printf("minishell: cd: %s: No such file or directory\n", path);
+			ft_dprintf(STDERR_FILENO, ERR_NO_SUCH_FILE_2, "cd", path);
 			g_data.exit_status = EXIT_FAILURE;
 			return ;
 		}

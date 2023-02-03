@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:54:11 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/02 12:42:59 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/03 04:24:15 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	quote_check(char *str)
 				i++;
 			if (!str[i])
 			{
-				ft_dprintf(2, "minishell: syntax error near unclosed quotation mark\n");
+				ft_dprintf(STDERR_FILENO, UNCLOSED_QUOT);
 				return (1);
 			}
 		}

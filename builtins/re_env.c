@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:13 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/28 00:14:12 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 04:17:47 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	re_env(char **args)
 	}
 	if (i != -1)
 	{
-		printf("minishell: env: No such file or directory\n");
+		ft_dprintf(STDERR_FILENO, ERR_NO_SUCH_FILE, "env");
 		g_data.exit_status = 127;
 		return ;
 	}

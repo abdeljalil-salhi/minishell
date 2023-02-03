@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/02/03 02:54:42 by absalhi          ###   ########.fr        #
+#    Updated: 2023/02/03 03:40:21 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ _BUILTINS = builtins_utils.c re_cd.c re_echo.c re_env.c re_exit.c re_export.c\
 BUILTINS = $(addprefix builtins/, $(_BUILTINS))
 
 _EXEC = supervisor.c exec_command.c exec_builtin.c exec_heredoc.c init_session.c\
-	supervisor_utils.c exec_builtin_piped.c
+	supervisor_utils.c exec_helpers.c
 EXEC = $(addprefix src/execution/, $(_EXEC))
 
 _DEBUG = print_struct.c

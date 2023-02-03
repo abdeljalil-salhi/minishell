@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_builtin_piped.c                               :+:      :+:    :+:   */
+/*   exec_helpers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 02:54:22 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/03 03:04:05 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 04:02:55 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,35 @@ void	exec_piped(t_proc *proc, int _pipe[2], int prev_pipe[2])
 		current = current->next;
 	}
 	exit(exec_builtin(proc->cmd, proc->args));
+}
+
+void	check_if_dots(t_proc **proc)
+{
+	if (ft_strcmp((*proc)->args[0], ".") == 0)
+	{
+		ft_dprintf(STDERR_FILENO, "minishell: .: filename argument required\n");
+		ft_dprintf(STDERR_FILENO, ".: usage: . filename [arguments]\n");
+		g_data.exit_status = 2;
+		(*proc)->error = 1;
+	}
+	else if (ft_strcmp((*proc)->args[0], "..") == 0)
+	{
+		ft_dprintf(STDERR_FILENO, ERR_CMD_NOT_FOUND, (*proc)->args[0]);
+		g_data.exit_status = 127;
+		(*proc)->error = 1;
+	}
+}
+
+void	check_if_directory(t_proc **proc)
+{
+	DIR	*dir;
+
+	dir = opendir((*proc)->cmd);
+	if (dir && !(*proc)->error)
+	{
+		ft_dprintf(2, CUSTOM, (*proc)->args[0], "is a directory");
+		(*proc)->error = 1;
+		g_data.exit_status = 126;
+		closedir(dir);
+	}
 }

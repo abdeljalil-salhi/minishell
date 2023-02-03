@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   re_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:54:16 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/30 07:02:22 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/03 04:20:55 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	re_unset(char **args)
 	{
 		if (!validate(args[i]))
 		{
-			printf("bash: unset: `%s': not a valid identifier\n", args[i]);
+			ft_dprintf(STDERR_FILENO, ERR_INVALID_IDENT, "unset", args[i]);
 			g_data.exit_status = EXIT_FAILURE;
 		}
 		else

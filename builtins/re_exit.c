@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:56:55 by mtellami          #+#    #+#             */
-/*   Updated: 2023/01/27 04:32:22 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 04:19:52 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	re_exit(char **args)
 	{
 		if (not_num(args[1]))
 		{
-			printf("minishell: exit: %s: numeric argument required\n", args[1]);
+			ft_dprintf(STDERR_FILENO, ERR_NUMERIC_ARG, args[1]);
 			g_data.exit_status = 255;
 			exit(g_data.exit_status);
 		}
 		else if (args[2])
 		{
-			printf("minishell: exit: too many arguments\n");
+			ft_dprintf(STDERR_FILENO, ERR_TOO_MANY_ARGS);
 			g_data.exit_status = 1;
 			return ;
 		}

@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:54 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/01 23:28:30 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 04:10:56 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ void	re_cd(char **args)
 		i = chdir(args[1]);
 		if (i == -1)
 		{
-			printf("minishell: cd: %s: No such file or directory\n", args[1]);
+			ft_dprintf(2, CUSTOM_2, "cd", args[1], strerror(errno));
 			g_data.exit_status = 1;
 			return ;
 		}
 		set_pwd();
 	}
 	else if (!cwd)
-		printf("cd: error retrieving current directory: getcwd: \
+		ft_dprintf(2, "cd: error retrieving current directory: getcwd: \
 		cannot access parent directories: No such file or directory\n");
 	free(cwd);
 }

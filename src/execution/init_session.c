@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:19:43 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/03 02:55:27 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 03:15:54 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	init_redirections(t_redir **redir)
 		((*redir))->fd = open(((*redir))->file, O_RDONLY, 0644);
 	else if (((*redir))->type == OUTPUT)
 		((*redir))->fd = open(((*redir))->file,
-			O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (((*redir))->type == APPEND)
 		((*redir))->fd = open(((*redir))->file,
-			O_WRONLY | O_CREAT | O_APPEND, 0644);
+				O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (((*redir))->type == HEREDOC)
 		((*redir))->fd = -3;
 	if (((*redir))->fd == -1 && access(((*redir))->file, F_OK) == -1)
