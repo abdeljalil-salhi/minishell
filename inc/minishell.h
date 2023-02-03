@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/02 16:13:46 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 03:06:25 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,8 @@ void	look_for_cmd_not_found(void);
 int		exit_status(int status);
 int		is_builtin(char *cmd);
 int		exec_builtin(char *cmd, char **args);
+int		exec_builtin_pipe(t_proc *proc, int _pipe[2], int prev_pipe[2]);
+void	exec_piped(t_proc *proc, int _pipe[2], int prev_pipe[2]);
 int		exec_empty_cmd(t_proc *proc);
 void	exec_cmd(t_proc *proc, int _pipe[2], int prev_pipe[2]);
 void	wait_for_child(pid_t pid, int _pipe[2], int prev_pipe[2], int *status);

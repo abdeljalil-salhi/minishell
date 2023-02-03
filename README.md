@@ -24,7 +24,7 @@
  - [X] BULITINS (for execution part);
  - [X] wildcards
 
-# execution : 90%
+# execution : 95%
  - [X] execute commands
  - [X] execute builtins
  - [X] pipes
@@ -41,4 +41,4 @@
 
 ## to-fix
 - [X] fix leaks
-- [ ] piped builtins
+- [X] piped builtins

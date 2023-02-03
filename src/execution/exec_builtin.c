@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 00:19:59 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/02 14:19:49 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 02:51:42 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,6 @@ int	exec_builtin(char *cmd, char **args)
 	return (1);
 }
 
-typedef struct s_exec_builtin
-{
-	int		pipe_stdout;
-	int		pipe_stdin;
-	int		status;
-	t_redir	*current;
-}	t_exec_builtin;
-
 int	dup_or_error_builtin(t_redir *current)
 {
 	init_redirections(&current);
@@ -84,10 +76,21 @@ int	dup_or_error_builtin(t_redir *current)
 	return (EXIT_SUCCESS);
 }
 
+typedef struct s_exec_builtin
+{
+	int		pipe_stdout;
+	int		pipe_stdin;
+	int		status;
+	t_redir	*current;
+}	t_exec_builtin;
+
 int	exec_builtin_cmd(t_proc *proc, int _pipe[2], int prev_pipe[2])
 {
 	t_exec_builtin	s;
 
+	if ((proc->previous && proc->previous->separator == PIPE_TOKEN)
+		|| proc->separator == PIPE_TOKEN)
+		return (exec_builtin_pipe(proc, _pipe, prev_pipe));
 	s.pipe_stdin = dup(STDIN_FILENO);
 	s.pipe_stdout = dup(STDOUT_FILENO);
 	if (proc->previous && proc->previous->separator == PIPE_TOKEN)
