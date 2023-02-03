@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 21:06:19 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/03 03:54:49 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 04:36:23 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	look_for_cmd_not_found(void)
 			&& !current->error)
 		{
 			if (ft_strchr(current->args[0], '/'))
+				ft_dprintf(2, ERR_NO_SUCH_FILE, current->args[0]);
+			else if (!is_path())
 				ft_dprintf(2, ERR_NO_SUCH_FILE, current->args[0]);
 			else
 				ft_dprintf(2, ERR_CMD_NOT_FOUND, current->args[0]);

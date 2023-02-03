@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/03 03:54:29 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 04:35:58 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ int		exit_status(int status);
 void	check_if_dots(t_proc **proc);
 void	check_if_directory(t_proc **proc);
 int		is_builtin(char *cmd);
+int		is_path(void);
 int		exec_builtin(char *cmd, char **args);
 int		exec_builtin_pipe(t_proc *proc, int _pipe[2], int prev_pipe[2]);
 void	exec_piped(t_proc *proc, int _pipe[2], int prev_pipe[2]);

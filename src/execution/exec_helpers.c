@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 02:54:22 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/03 04:02:55 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/03 04:51:47 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,17 @@ void	check_if_directory(t_proc **proc)
 		g_data.exit_status = 126;
 		closedir(dir);
 	}
+}
+
+int	is_path(void)
+{
+	int	i;
+
+	if (!g_data.env)
+		return (0);
+	i = -1;
+	while (g_data.env[++i])
+		if (ft_strncmp(g_data.env[i], "PATH=", 5) == 0)
+			return (1);
+	return (0);
 }
