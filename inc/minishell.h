@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/03 10:35:21 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/04 13:04:18 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,6 @@ enum e_separator
 	PIPE_TOKEN,
 };
 
-/*
-	<-- man parsing -->
-	- redirection struct :
-	 + type :	type of next separator (check separators enum ^)
-	 + fd   :	file descriptor in success, -1 if permission denied
-	 			-2 if no such file, -3 if here_doc
-	 + file :	file path, delimiter in here_doc
-
-	- process struct :
-	 + cmd :	command absolute path, NULL if command not found,
-	 			empty str if no command (< filein > fileout)
-	 + args :	argument array, NULL if no args
-	 + separator : check types in enum ^
-	 + head :	header of redirections list, NULL if no redirections
-
-	- main struct (data)
-	 + env  :	environment array, main shell env
-	 + errors :	used in parsing if syntax error detected
-	 + head :	the header of process list
-*/
-
 typedef struct s_redir
 {
 	int				type;
@@ -153,7 +132,6 @@ char	*ft_strchr(char *str, int c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strrchr(char *str, int c);
 int		ft_dprintf(int fd, const char *s, ...);
-char	*ft_strnstr(char *big, char *little, size_t len);
 
 /* ------------- parsing ------------- */
 void	parsing(char *input);
@@ -187,6 +165,7 @@ char	*prompt(void);
 int		not_special(char c);
 int		is_arrow(char *str);
 void	cd_oldpwd(void);
+int		pattern_match(char *filename, char *pattern, int file_i, int patt_i);
 
 /* ------------- builtins ------------- */
 void	init_builtins(void);

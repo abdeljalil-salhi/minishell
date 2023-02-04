@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 23:12:04 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/03 10:57:55 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/04 12:44:15 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,27 +46,6 @@ void	add_filename(char ***buffer, char *str, char *filename)
 		*buffer = arr_concate(*buffer, filename);
 }
 
-int	searched_file(char *filename, char *str)
-{
-	char	**arr;
-	int		i;
-
-	if (ft_strchr(str, '/'))
-		str = ft_strrchr(str, '/') + 1;
-	arr = ft_split(str, '*');
-	i = -1;
-	while (arr[++i])
-	{
-		if (ft_strstr(filename, arr[i]))
-		{
-			ft_freearr(arr);
-			return (1);
-		}
-	}
-	ft_freearr(arr);
-	return (0);
-}
-
 char	**expand_wildcard(char **buffer, char *str)
 {
 	char	**tree;
@@ -82,7 +61,7 @@ char	**expand_wildcard(char **buffer, char *str)
 		tree = alloc_one();
 	while (tree[i])
 	{
-		if (searched_file(tree[i], str))
+		if (pattern_match(tree[i], str, -1, -1))
 			add_filename(&tab, str, tree[i]);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:54 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/03 07:50:53 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/03 14:37:25 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	re_cd(char **args)
 		set_pwd();
 	}
 	else if (!cwd)
-		ft_dprintf(2, "cd: error retrieving current directory: getcwd: \
+		ft_dprintf(2, "cd: error retrieving current directory: getcwd:\
 		cannot access parent directories: No such file or directory\n");
 	free(cwd);
 }
