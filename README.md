@@ -12,7 +12,7 @@
 
 ---
 
-# parsing : 95%
+# parsing : 99%
  - [X] handle (ctrl+C , ctrl+D , ctrl+\) signals
  - [X] lexical analyse (split input into : words, special characteres('>' '<' '(' ')' '|' '&' ))
  - [X] check for syntax errors (unclosed quotes, invalid form of ">> << > < && || |", ......)
