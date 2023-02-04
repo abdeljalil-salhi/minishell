@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:55:55 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/04 13:03:31 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/04 14:18:06 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,7 @@ void	cd_oldpwd(void)
 	int		i;
 
 	i = 0;
-	path = NULL;
-	while (g_data.env[i])
-	{
-		if (!ft_strncmp(g_data.env[i], "OLDPWD=", 7))
-		{
-			path = ft_strdup(g_data.env[i] + 7);
-			break ;
-		}
-		i++;
-	}
+	path = ft_getenv("OLDPWD");
 	if (!path)
 	{
 		ft_dprintf(STDERR_FILENO, ERR_UNSET, "OLDPWD");
@@ -62,5 +53,7 @@ void	re_pwd(char **args)
 	pwd = getcwd(NULL, 0);
 	if (pwd)
 		printf("%s\n", pwd);
+	else
+		pwd = ft_getenv("OLDPWD");
 	free(pwd);
 }

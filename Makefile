@@ -6,7 +6,7 @@
 #    By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/02/04 13:04:47 by mtellami         ###   ########.fr        #
+#    Updated: 2023/02/04 14:17:06 by mtellami         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ LIBFT = libft/ft_strlen.c libft/ft_strdup.c libft/ft_freearr.c libft/ft_tabsize.
 	libft/ft_strcmp.c libft/ft_subarr.c libft/ft_strcjoin.c libft/ft_split.c \
 	libft/ft_strstr.c libft/ft_tabdup.c libft/ft_substr.c libft/ft_itoa.c\
 	libft/ft_strchr.c libft/ft_strjoin.c libft/ft_atoi.c libft/ft_bzero.c\
-	libft/ft_strrchr.c libft/ft_dprintf.c \
+	libft/ft_strrchr.c libft/ft_dprintf.c libft/ft_getenv.c\
 
 PARSE = src/parsing/parsing.c src/parsing/syntax_error.c src/parsing/lexer.c\
 	src/parsing/concate.c src/parsing/parser.c src/parsing/lst_addback.c\

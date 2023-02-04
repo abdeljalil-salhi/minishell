@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:13:58 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/04 13:04:18 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/04 14:16:52 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ char	*ft_strchr(char *str, int c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strrchr(char *str, int c);
 int		ft_dprintf(int fd, const char *s, ...);
+char	*ft_getenv(char *str);
 
 /* ------------- parsing ------------- */
 void	parsing(char *input);

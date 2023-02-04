@@ -6,7 +6,7 @@
 /*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 19:57:54 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/03 14:37:25 by mtellami         ###   ########.fr       */
+/*   Updated: 2023/02/04 14:22:19 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,24 +65,6 @@ int	check_home(void)
 		i++;
 	}
 	return (0);
-}
-
-char	*home_path(void)
-{
-	char	*path;
-	int		i;
-
-	i = 0;
-	while (g_data.env[i])
-	{
-		if (!ft_strncmp("HOME", g_data.env[i], 4))
-		{
-			path = ft_strdup(g_data.env[i] + 5);
-			return (path);
-		}
-		i++;
-	}
-	return (NULL);
 }
 
 void	re_cd(char **args)

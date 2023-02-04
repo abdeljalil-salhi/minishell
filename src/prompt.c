@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 08:48:57 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/02 11:46:42 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/04 14:34:54 by mtellami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*get_cwd_env(void)
-{
-	char	*cwd;
-	int		i;
-
-	i = 0;
-	while (g_data.env[i])
-	{
-		if (!ft_strncmp(g_data.env[i], "PWD=", 4))
-			cwd = ft_strdup(g_data.env[i] + 4);
-		i++;
-	}
-	return (cwd);
-}
 
 typedef struct s_prompt
 {
@@ -41,7 +26,7 @@ char	*prompt(void)
 
 	s.path = getcwd(NULL, 0);
 	if (!s.path)
-		s.path = get_cwd_env();
+		s.path = ft_getenv("PWD");
 	s.user = ft_strdup("$USER");
 	s.user = expand(s.user, 1);
 	if (g_data.exit_status == 0)
