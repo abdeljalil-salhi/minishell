@@ -103,6 +103,7 @@ void	re_cd(char **args)
 		{
 			ft_dprintf(2, CUSTOM_2, "cd", args[1], strerror(errno));
 			g_data.exit_status = 1;
+			free(cwd);
 			return ;
 		}
 		set_pwd();
