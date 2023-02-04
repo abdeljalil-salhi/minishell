@@ -26,9 +26,9 @@ void	quote_analyse(char **buffer, char *input, int *i)
 		d_quote++;
 	while (input[*i])
 	{
-		if (input[*i] == SINGLE_QUOTE)
+		if (input[*i] == SINGLE_QUOTE && d_quote % 2 == 0)
 			s_quote++;
-		else if (input[*i] == DOUBLE_QUOTE)
+		else if (input[*i] == DOUBLE_QUOTE && s_quote % 2 == 0)
 			d_quote++;
 		if (s_quote % 2 == 0 && d_quote % 2 == 0
 			&& (!not_metachar(input[*i + 1]) || !input[(*i) + 1]))
