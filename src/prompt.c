@@ -6,11 +6,23 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 08:48:57 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/05 01:33:26 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/05 06:54:20 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*ft_get_path(void)
+{
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	if (!path)
+		path = ft_getenv("PWD");
+	if (!path)
+		path = ft_strdup("~/minishell");
+	return (path);
+}
 
 typedef struct s_prompt
 {
@@ -24,9 +36,7 @@ char	*prompt(void)
 {
 	t_prompt	s;
 
-	s.path = getcwd(NULL, 0);
-	if (!s.path)
-		s.path = ft_getenv("PWD");
+	s.path = ft_get_path();
 	s.user = ft_strdup("$USER");
 	s.user = expand(s.user, 1);
 	if (g_data.exit_status == 0)
