@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 11:54:11 by mtellami          #+#    #+#             */
-/*   Updated: 2023/02/03 04:24:15 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/05 02:08:54 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	separator_check(char **lx, int i)
 				ft_dprintf(2, UNEXPECTED_TOKEN, lx[i]);
 			else
 				ft_dprintf(2, UNEXPECTED_TOKEN, lx[i + 1]);
+			g_data.exit_status = 258;
 			return (1);
 		}
 	}
@@ -38,12 +39,14 @@ int	redirection_check(char **lx, int i)
 		if (!lx[i + 1])
 		{
 			ft_dprintf(2, UNEXPECTED_TOKEN, "newline");
+			g_data.exit_status = 258;
 			return (1);
 		}
 		else if (is_arrow(lx[i + 1]) != -1 || !ft_strcmp(lx[i + 1], "|")
 			|| !ft_strcmp(lx[i + 1], "||") || !ft_strcmp(lx[i + 1], "&&"))
 		{
 			ft_dprintf(2, UNEXPECTED_TOKEN, lx[i + 1]);
+			g_data.exit_status = 258;
 			return (1);
 		}
 	}
@@ -66,7 +69,7 @@ int	quote_check(char *str)
 			if (!str[i])
 			{
 				ft_dprintf(STDERR_FILENO, UNCLOSED_QUOT);
-				return (1);
+				return (g_data.exit_status = 258, 1);
 			}
 		}
 		i++;
@@ -80,6 +83,7 @@ int	invalid_sep(char **lx, int i)
 		|| !ft_strcmp(lx[0], "||") || !ft_strcmp(lx[0], "|"))
 	{
 		ft_dprintf(2, UNEXPECTED_TOKEN, lx[i]);
+		g_data.exit_status = 258;
 		return (1);
 	}
 	return (0);

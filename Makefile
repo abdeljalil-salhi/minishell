@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mtellami <mtellami@student.1337.ma>        +#+  +:+       +#+         #
+#    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/02/04 14:17:06 by mtellami         ###   ########.fr        #
+#    Updated: 2023/02/05 02:07:40 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,7 @@ OBJS = $(SRCS:.c=.o) $(LIBFT:.c=.o) $(PARSE:.c=.o) $(EXEC:.c=.o)\
 .c.o :
 	@cc $(CFLAGS) -c $< -o $(<:.c=.o)
 
-all : header $(NAME)
-
-header :
-	@echo "Compiling $(NAME)..."
+all : $(NAME)
 
 get_brew:
 	@echo "Installing Homebrew..."

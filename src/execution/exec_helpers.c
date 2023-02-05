@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 02:54:22 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/03 04:51:47 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/05 00:30:12 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	exec_piped(t_proc *proc, int _pipe[2], int prev_pipe[2])
 
 void	check_if_dots(t_proc **proc)
 {
+	if (!(*proc)->args)
+		return ;
 	if (ft_strcmp((*proc)->args[0], ".") == 0)
 	{
 		ft_dprintf(STDERR_FILENO, "minishell: .: filename argument required\n");
