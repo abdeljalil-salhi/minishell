@@ -6,7 +6,7 @@
 #    By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 22:31:07 by absalhi           #+#    #+#              #
-#    Updated: 2023/02/05 05:20:12 by absalhi          ###   ########.fr        #
+#    Updated: 2023/02/05 05:27:51 by absalhi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,13 +108,13 @@ norm		:
 				@echo $(NONE)$(ITALIC)$(GREEN) "     ~ Checking header files norminette..." $(GRAY)
 				@norminette inc/*.h
 				@echo $(NONE)$(ITALIC)$(GREEN) "     ~ Checking source files norminette..." $(GRAY)
-				@norminette src/debug/*.c
-				@norminette src/execution/*.c
-				@norminette src/parsing/*.c
-				@norminette src/*.c
+				@norminette $(_DPARSE)/*.c
+				@norminette $(_DEXEC)/*.c
+				@norminette $(_DDEBUG)/*.c
+				@norminette $(_DSRCS)/*.c
 				@echo $(NONE)$(ITALIC)$(GREEN) "     ~ Checking libft norminette..." $(GRAY)
-				@norminette libft/*.c
+				@norminette $(_DLIBFT)/*.c
 				@echo $(NONE)$(ITALIC)$(GREEN) "     ~ Checking builtins norminette..." $(GRAY)
-				@norminette builtins/*.c
+				@norminette $(_DBUILTINS)/*.c
 
 .PHONY		:	all get_brew get_readline install debug clean fclean re norm
