@@ -12,7 +12,7 @@
 
 ---
 
-# parsing : 99%
+# parsing : 100%
  - [X] handle (ctrl+C , ctrl+D , ctrl+\) signals
  - [X] lexical analyse (split input into : words, special characteres('>' '<' '(' ')' '|' '&' ))
  - [X] check for syntax errors (unclosed quotes, invalid form of ">> << > < && || |", ......)
@@ -24,7 +24,7 @@
  - [X] BULITINS (for execution part);
  - [X] wildcards
 
-# execution : 95%
+# execution : 100%
  - [X] execute commands
  - [X] execute builtins
  - [X] pipes
@@ -39,6 +39,6 @@
  - [ ] semicolon
  - [ ] aliases
 
-## to-fix
+## to-fix 100%
 - [X] fix leaks
 - [X] piped builtins
