@@ -59,6 +59,12 @@ The goal of this project is to create a simple shell. The shell is the command-l
 
 7. The shell waits for the command to complete, and then collects the **exit status** of the last executed child process _(see [**exit status**](https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html))_.
 
+---
+
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/65598953/217110452-a3dc8e9a-54a9-46d9-9f15-3e97cd2f27ee.png" width="500" alt="Shell" />
+</p>
+
 ## Features
 
 - [x] **Builtins**:
@@ -113,6 +119,14 @@ The goal of this project is to create a simple shell. The shell is the command-l
 
 - [x] **ZSH-like prompt**
 
+---
+
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/65598953/217110917-21289b92-9920-4a56-bb2d-c3f8e760a9f5.png" width="500" alt="Shell quoting" />
+	<br />
+	<i>A quote by a shell, because you know... ~shell quotes :v</i>
+</p>
+
 ## Quoting
 
 Quoting is a way to tell the shell to treat a sequence of characters as a single word. The shell uses the following rules to determine how to interpret the characters in a word:
@@ -164,6 +178,14 @@ Quoting is a way to tell the shell to treat a sequence of characters as a single
 - If the first character of a word is neither a **single-quote** nor a **double-quote**, and the word contains **metacharacters**, the shell treats the entire word as a **compound word**.
 
 All being said, the various quoting mechanisms are the escape character, single-quotes, and double-quotes. The here-document represents another form of quoting; however, it is not a quoting mechanism in the sense that it does not affect the interpretation of the characters in the here-document. The here-document is a way to feed input to a command.
+
+---
+
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/65598953/217112077-cf52c8b7-a64f-45bf-8664-f3fda12b59dc.png" width="500" alt="Shell token - 1909" />
+	<br />
+	<i>A shell token from ~1909...</i>
+</p>
 
 ## Token recognition
 
@@ -254,6 +276,12 @@ After getting the tokens, the shell shall execute the command. The shell shall e
 
 	- If the redirection is not a input redirection, the shell shall check if the redirection is a **output/append redirection**. If it is, the shell shall perform the output/append redirection by duplicating the file descriptor of the standard output to the file descriptor of the file specified in the redirection.
 
+---
+
+<p align="center">
+	<img src="https://thumbs.gfycat.com/TallConcernedGrouper-max-1mb.gif" width="500"/>
+</p>
+
 ## Exit status
 
 The shell shall return the exit status of the last command executed. If the last command is completed successfully, the shell shall return zero. If the last command is not completed successfully, the shell shall return a non-zero value.
@@ -319,13 +347,21 @@ The shell shall support parentheses. A group is a sequence of one or more comman
 
 This the way I interpret the parentheses:
 
-![image](https://user-images.githubusercontent.com/65598953/217078098-ff74ea95-c652-4c15-9fe4-35beea00e3ed.png)
+<p align="center">
+	<img src="https://user-images.githubusercontent.com/65598953/217078098-ff74ea95-c652-4c15-9fe4-35beea00e3ed.png" />
+</p>
 
 Each outer parentheses represent a group, and each inner parentheses represent a sub-group. Giving each of them a level, with the outer commands being in the **level 01**, and the inner commands being in the **level 02**, and so on...
 
+---
+
+<p align="center">
+	<img src="https://i.pinimg.com/originals/22/d7/a7/22d7a7c0eee4f44de655e484301b482d.gif" />
+</p>
+
 ## Conclusion
 
-
+Well, the minishell project is a challenging and rewarding experience that allows students to dive deep into the intricacies of system programming. By building a functional shell from scratch, students are able to understand the complexities of how the command line interface works and the role it plays in operating systems. The project provides hands-on experience with various concepts such as process management, environment variables, and file redirection, making it an essential component of a solid understanding of system programming.
 
 I hope this guide helped you understand how a shell works. If you have any questions, feel free to ask them in the comments. If you want to contribute to this guide, feel free to open a pull request.
 
