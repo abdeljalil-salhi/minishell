@@ -6,7 +6,7 @@
 /*   By: absalhi <absalhi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:19:43 by absalhi           #+#    #+#             */
-/*   Updated: 2023/02/03 03:15:54 by absalhi          ###   ########.fr       */
+/*   Updated: 2023/02/06 11:42:13 by absalhi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static void	print_banner(void)
 	printf("\t░      ░    ▒ ░   ░   ░ ░  ▒ ░░ ");
 	printf(" ░  ░   ░  ░░ ░   ░     ░ ░     ░ ░   \n");
 	printf("\t       ░    ░           ░  ░    ");
-	printf("    ░   ░  ░  ░   ░  ░    ░  ░    ░  ░\n\n");
-	printf(RESET);
+	printf("    ░   ░  ░  ░   ░  ░    ░  ░    ░  ░\n");
+	printf("%s\n", RESET);
 }
 
 /*
