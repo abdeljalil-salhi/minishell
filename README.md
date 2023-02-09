@@ -290,20 +290,25 @@ The exit status can be retrieved by using the `waitpid` function. The `waitpid` 
 
 ```c
 /*
-	Evaluates to a non-zero value if status was returned for a child process that terminated normally.
+	Evaluates to a non-zero value if status was returned for a child process
+	that terminated normally.
 */
 WIFEXITED(stat_val)
 /*
-	If the value of WIFEXITED(stat_val) is non-zero, this macro evaluates to the low-order 8 bits of the status argument that the child process passed to _exit() or exit(), or the value the child process returned from main().
+	If the value of WIFEXITED(stat_val) is non-zero, this macro evaluates to
+	the low-order 8 bits of the status argument that the child process passed
+	`to _exit()` or `exit()`, or the value the child process returned from `main()`.
 */
 WEXITSTATUS(stat_val)
 
 /*
-	Evaluates to a non-zero value if status was returned for a child process that terminated due to the receipt of a signal that was not caught.
+	Evaluates to a non-zero value if status was returned for a child process
+	that terminated due to the receipt of a signal that was not caught.
 */
 WIFSIGNALED(stat_val)
 /*
-	If the value of WIFSIGNALED(stat_val) is non-zero, this macro evaluates to the number of the signal that caused the termination of the child process.
+	If the value of WIFSIGNALED(stat_val) is non-zero, this macro evaluates
+	to the number of the signal that caused the termination of the child process.
 */
 WTERMSIG(stat_val)
 ```
