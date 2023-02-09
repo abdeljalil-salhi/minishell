@@ -370,6 +370,8 @@ Well, the minishell project is a challenging and rewarding experience that allow
 
 I hope this guide helped you understand how a shell works. If you have any questions, feel free to ask them in the comments. If you want to contribute to this guide, feel free to open a pull request.
 
+_**PS:** I know my project ain't perfect, so make sure to open an issue if you found any SEGVs ;)_
+
 ---
 
 Made by **absalhi**: absalhi@student.1337.ma
